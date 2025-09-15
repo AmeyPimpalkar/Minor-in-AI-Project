@@ -1,0 +1,58 @@
+)",
+    "hint": "Make sure the key you are trying to look up is present in the dictionary."
+  },
+  {
+    "error_name": "IndexError",
+    "explanation": "This error means you're trying to access an item in a list or string using an index that is outside the allowed range. Python uses zero-based indexing.",
+    "code_snippet": "fruits = ['apple', 'banana', 'cherry']\nprint(fruits)",
+    "hint": "The first item in the list is at index 0, and the last item is at index 2."
+  },
+  {
+    "error_name": "AttributeError",
+    "explanation": "This error happens when you try to access a method or attribute that an object doesn't have. It's like asking a list to do something only a string can.",
+    "code_snippet": "my_list = \nmy_list.append(\"hello\")\nmy_list.upper()",
+    "hint": "The `.upper()` method is for strings, not lists. Check the type of the variable you are working with."
+  },
+  {
+    "error_name": "SyntaxError",
+    "explanation": "This error means you made a mistake in Python's grammar. It can be caused by using a keyword or operator incorrectly, such as using `=` for comparison instead of `==`.",
+    "code_snippet": "x = 5\nif x = 5:\n    print(\"x is 5\")",
+    "hint": "Remember that `=` is for assigning a value, and `==` is for checking if two values are equal."
+  },
+  {
+    "error_name": "TypeError",
+    "explanation": "This error occurs when you try to use an object in a way it was not intended to be used. For example, trying to use a list like a function.",
+    "code_snippet": "numbers = \nresult = numbers(0)",
+    "hint": "The variable 'numbers' is a list, not a function. You should use square brackets `` to access its elements."
+  },
+  {
+    "error_name": "IndentationError",
+    "explanation": "This error is common when mixing spaces and tabs, or when a line in a code block is not indented by the same amount as the others.",
+    "code_snippet": "for i in range(2):\n    print(i)\n print(\"Done\")",
+    "hint": "All lines inside a code block (like a `for` loop) must have the same indentation level."
+  },
+  {
+    "error_name": "KeyError",
+    "explanation": "You're trying to retrieve a value from a dictionary using a key that does not exist. Keys must match exactly.",
+    "code_snippet": "student = {'name': 'Bob'}\nprint(student['Name'])",
+    "hint": "Dictionary keys are case-sensitive. The key 'name' is not the same as 'Name'."
+  },
+  {
+    "error_name": "NameError",
+    "explanation": "This error happens when you call a function that has not been defined. You must define a function before you can call it.",
+    "code_snippet": "calculate_area(5, 10)\n\ndef calculate_area(width, height):\n    return width * height",
+    "hint": "You tried to call the function `calculate_area` before it was defined. Move the function definition to an earlier line."
+  },
+  {
+    "error_name": "ValueError",
+    "explanation": "This error occurs when you try to convert a value to a different type, but the value is not in the correct format for the conversion.",
+    "code_snippet": "from datetime import datetime\ndatetime.strptime(\"2023-13-01\", \"%Y-%m-%d\")",
+    "hint": "The month '13' is not a valid value for the month part of a date. Check your input."
+  },
+  {
+    "error_name": "ModuleNotFoundError",
+    "explanation": "This error means Python cannot find the module you are trying to import. The module might be misspelled or not installed.",
+    "code_snippet": "import requests\n\nimport funny_function",
+    "hint": "Check the spelling of the module name. You may need to install the module using a tool like pip."
+  }
+]

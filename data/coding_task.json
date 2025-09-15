@@ -1,0 +1,65 @@
+",
+    "expected_output": "",
+    "hint": "You'll need to use a `for` loop to go through each number and an `if` statement to check if it's even."
+  },
+  {
+    "task_description": "Write a function that takes a string and returns the number of vowels ('a', 'e', 'i', 'o', 'u') in it.",
+    "example_input": "\"hello world\"",
+    "expected_output": "3",
+    "hint": "Create a variable to hold the count. Then, loop through each character in the string and check if it's a vowel."
+  },
+  {
+    "task_description": "Write a function that accepts a full price and a discount percentage. It should return the final price after the discount is applied.",
+    "example_input": "Price: 100, Discount: 20",
+    "expected_output": "80.0",
+    "hint": "The formula for the final price is: `price * (1 - discount_percent / 100)`."
+  },
+  {
+    "task_description": "Create a function that takes a list of strings and integers. It should return a new list containing only the integers, in the same order.",
+    "example_input": "['hello', 1, 'world', 2, 3, 'python']",
+    "expected_output": "",
+    "hint": "Loop through the list and use a conditional statement to check the type of each item."
+  },
+  {
+    "task_description": "Write a program that takes a sentence and finds the longest word. It should print that word.",
+    "example_input": "\"Python is a great programming language\"",
+    "expected_output": "programming",
+    "hint": "You can use the `.split()` method to break the sentence into a list of words. Then, loop through the list and keep track of the longest word you have found so far."
+  },
+  {
+    "task_description": "Create a function that takes a string and returns a new string with each character doubled.",
+    "example_input": "\"now\"",
+    "expected_output": "\"nnooww\"",
+    "hint": "Start with an empty string and build the new string one character at a time inside a loop."
+  },
+  {
+    "task_description": "Write a function that takes a list of lists. It should create a dictionary where keys are the first element of each sublist and values are the sum of the second elements of all sublists with that key.",
+    "example_input": "[['item1', 4], ['item2', 5], ['item1', 7]]",
+    "expected_output": "{'item1': 11, 'item2': 5}",
+    "hint": "Loop through the list. For each sublist, check if its first element is already a key in your dictionary. If so, add to its value; otherwise, create a new key."
+  },
+  {
+    "task_description": "Implement the classic FizzBuzz problem: Write a program that prints numbers from 1 to 100. But for multiples of three print 'Fizz' instead of the number, and for multiples of five print 'Buzz'. For numbers which are multiples of both three and five print 'FizzBuzz'.",
+    "example_input": "Numbers from 1 to 15",
+    "expected_output": "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz",
+    "hint": "Use a `for` loop to iterate through the numbers. Use the modulo operator (%) and a series of `if/elif/else` statements to check for divisibility."
+  },
+  {
+    "task_description": "Create a function that takes a credit card number as a string and returns a new string where all characters are hidden with an asterisk `*`, except for the last four.",
+    "example_input": "\"1234567890123456\"",
+    "expected_output": "\"************3456\"",
+    "hint": "You can use string slicing to get the last four digits. You'll also need to figure out how many asterisks to add before them."
+  },
+  {
+    "task_description": "Write a function that takes a list of numbers and a string ('asc', 'desc', or 'none'). It should return the list sorted accordingly. If the string is 'none', return the original list.",
+    "example_input": ", 'desc'",
+    "expected_output": "",
+    "hint": "Use `if/elif/else` statements to check the string. Python's built-in `list.sort()` method can be used, and it accepts an argument to sort in reverse."
+  },
+  {
+    "task_description": "Write a function that reverses a given string without using built-in string reversal methods or slicing like `[::-1]`.",
+    "example_input": "\"hello\"",
+    "expected_output": "\"olleh\"",
+    "hint": "Loop through the string from the last character to the first, and build a new string one character at a time."
+  }
+]
