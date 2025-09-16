@@ -1,11 +1,20 @@
 import json
+import os
 
 ERRORS_DB = "data/errors.json"
 
 def load_errors():
-    """Load error explanations from JSON."""
-    with open(ERRORS_DB, "r") as f:
-        return json.load(f)
+    """Load error explanations safely from JSON."""
+    if os.path.exists(ERRORS_DB):
+        try:
+            with open(ERRORS_DB, "r") as f:
+                content = f.read().strip()
+                if not content:  # if file is empty
+                    return {}
+                return json.loads(content)
+        except json.JSONDecodeError:
+            return {}
+    return {}
 
 def explain_error(error_message):
     """Return explanation and hint if error found in DB."""
