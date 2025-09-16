@@ -2,45 +2,13 @@
 # Phase 1: Streamlit App Skeleton
 
 import streamlit as st
+from app import login as login_module
 
 # ---------------------------
 # Temporary "database" for demo
 # Later we can replace this with SQLite or JSON file
 # ---------------------------
 users_db = {}  # Stores {username: password}
-
-
-# ---------------------------
-# Function: Sign Up
-# ---------------------------
-def signup():
-    st.subheader("Create a New Account")
-    new_user = st.text_input("Choose a username")
-    new_pass = st.text_input("Choose a password", type="password")
-
-    if st.button("Sign Up"):
-        if new_user in users_db:
-            st.warning("Username already exists. Try another one.")
-        else:
-            users_db[new_user] = new_pass
-            st.success("Account created successfully! Please log in now.")
-
-
-# ---------------------------
-# Function: Login
-# ---------------------------
-def login():
-    st.subheader("Login to Your Account")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-        if username in users_db and users_db[username] == password:
-            st.success(f"Welcome {username}!")
-            # After login → go to language selection
-            language_selection()
-        else:
-            st.error("Invalid username or password.")
 
 
 # ---------------------------
@@ -57,6 +25,7 @@ def language_selection():
 # ---------------------------
 # Main App Flow
 # ---------------------------
+
 def main():
     st.title("💻 AI Learning Assistant (Prototype)")
 
@@ -64,10 +33,14 @@ def main():
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Login":
-        login()
+        logged_in, user = login_module.login()
+        if logged_in:
+            st.session_state["user"] = user
+            st.info("🔜 Next step: load language selection here...")
     elif choice == "Sign Up":
-        signup()
+        login_module.signup()
 
 
 if __name__ == "__main__":
     main()
+
