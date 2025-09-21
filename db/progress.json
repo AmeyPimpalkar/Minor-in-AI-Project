@@ -1,0 +1,11 @@
+[
+  {
+    "username": "demo_user",
+    "task_id": "easy_string_reversal",
+    "passed": 3,
+    "total": 3,
+    "code": "word = input()\nprint(word[::-1])\n\n",
+    "timestamp": "2025-09-21T19:44:45.069161",
+    "duration_seconds": 0
+  }
+]

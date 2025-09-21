@@ -27,42 +27,44 @@ def language_selection():
 # Main App Flow
 # ---------------------------
 
+# main.py
+import streamlit as st
 from app import login as login_module
 from app import coding as coding_module
 from app import exercises as exercises_module
+from app import dashboard as dashboard_module
 
 def main():
-    st.title("💻 AI Learning Assistant (Prototype)")
+    st.set_page_config(page_title="AI Coding Mentor", layout="wide")
+    st.title("🤖 AI Coding Mentor")
 
-    if "user" not in st.session_state:
-        st.session_state["user"] = None
+    if "logged_in" not in st.session_state:
+        st.session_state.logged_in = False
+        st.session_state.user = None
 
-    # Sidebar menu
-    if st.session_state["user"] is None:
-        menu = ["Login", "Sign Up"]
-    else:
-        menu = ["Coding Practice", "Exercises", "Logout"]
-
-    choice = st.sidebar.selectbox("Menu", menu)
-
-    # Routes
-    if choice == "Login":
+    if not st.session_state.logged_in:
         logged_in, user = login_module.login()
         if logged_in:
-            st.session_state["user"] = user
+            st.session_state.logged_in = True
+            st.session_state.user = user
+    else:
+        st.sidebar.success(f"👋 Welcome, {st.session_state.user}")
+        choice = st.sidebar.radio(
+            "Navigation",
+            ["Dashboard", "Coding Practice", "Exercises", "Logout"]
+        )
 
-    elif choice == "Sign Up":
-        login_module.signup()
+        if choice == "Coding Practice":
+            coding_module.coding_practice(st.session_state.user)
+        elif choice == "Exercises":
+            exercises_module.exercises(st.session_state.user)
+        elif choice == "Dashboard":
+            dashboard_module.dashboard(st.session_state.user)
+        elif choice == "Logout":
+            st.session_state.logged_in = False
+            st.session_state.user = None
+            st.sidebar.info("Logged out successfully!")
 
-    elif choice == "Coding Practice" and st.session_state["user"]:
-        coding_module.coding_practice()
-
-    elif choice == "Exercises" and st.session_state["user"]:
-        exercises_module.exercises()
-
-    elif choice == "Logout":
-        st.session_state["user"] = None
-        st.info("👋 You have logged out.")
 
 if __name__ == "__main__":
     main()
