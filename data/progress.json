@@ -1,0 +1,42 @@
+[
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 3,
+    "total": 3,
+    "code": "word = input()\nprint(word[::-1])",
+    "timestamp": "2025-09-22T12:13:50.844065",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "num = int(input())\nfor i in range(num):\nprint(i)",
+    "timestamp": "2025-09-22T12:19:56.271518",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "for i in range(5):\nprint(i)",
+    "timestamp": "2025-09-22T12:21:50.442760",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "for i in range(5):\n  print(i)",
+    "timestamp": "2025-09-22T12:21:56.323742",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  }
+]

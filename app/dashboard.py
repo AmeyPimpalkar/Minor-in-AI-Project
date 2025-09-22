@@ -1,7 +1,7 @@
 # app/dashboard.py
 import streamlit as st
 import pandas as pd
-import plotly as px
+import plotly.express as px
 from core.progress import load_progress
 
 def dashboard(username):

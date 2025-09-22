@@ -65,7 +65,7 @@ def make_input_fn(input_str):
             raise EOFError("No more input provided for this test case.")
     return _input
 
-def exercises():
+def exercises(username):
     start_time = time.time()
     st.subheader("🎯 Coding Exercises")
     tasks = load_tasks()
@@ -186,11 +186,11 @@ def exercises():
     # ✅ Save progress
     from core.progress import log_progress
     log_progress(
-        username="demo_user",  # TODO: replace with actual logged-in user
-        task_id=task.get("id", f"task_{idx}"),
-        passed=passed,
-        total=total,
-        code=code,
-        duration=duration
-    )
+    username=username,
+    task_id=task.get("id", f"task_{idx}"),
+    passed=passed,
+    total=total,
+    code=code,
+    duration=duration
+)
     st.success("📊 Progress saved!")
