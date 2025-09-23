@@ -9,6 +9,7 @@ from core.error_handler import explain_error
 import os
 import time
 from core.progress import log_progress
+# from st_ace import st_ace
 
 TASKS_DB = "data/coding_task.json"
 
@@ -103,7 +104,7 @@ def exercises(username):
     for i, case in enumerate(test_cases[:5], 1):
         st.write(f"{i}. input: `{case.get('input','')}` → expected: `{case.get('expected_output','')}`")
 
-    code = st.text_area("✍️ Write your solution here:", height=240)
+    code = code = st.text_area("✍️ Write your solution here:", height=240)
 
     if st.button("Run Solution"):
         start_time = time.time()   # ⏱ Start timing when Run button is clicked

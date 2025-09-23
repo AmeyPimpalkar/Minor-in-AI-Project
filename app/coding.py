@@ -4,37 +4,36 @@ import traceback
 from io import StringIO
 import sys
 import time
+# from st_ace import st_ace  # Re-importing after reinstallation
 from core.error_handler import explain_error
-from core.progress import log_progress  # ✅ add progress tracking
+from core.progress import log_progress
 
 def coding_practice(username):
     st.subheader("📝 Try Writing Python Code")
 
+    # ✅ Code editor instead of text_area
     code = st.text_area("Write your Python code here:", height=200)
 
     if st.button("Run Code"):
-        start_time = time.time()  # ⏱ track start
+        start_time = time.time()
 
-        # Redirect print() output to a buffer
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
 
         try:
             local_vars = {}
-            exec(code, {}, local_vars)  # run user code
-            output = mystdout.getvalue()  # capture print() output
+            exec(code, {}, local_vars)
+            output = mystdout.getvalue()
 
             if output.strip():
                 st.success("✅ Code ran successfully!")
                 st.text("📤 Output:")
                 st.code(output, language="text")
-                passed = 1
-                total = 1
+                passed, total = 1, 1
             else:
                 st.success("✅ Code ran successfully but no output was printed.")
                 st.write("Variables:", local_vars)
-                passed = 1
-                total = 1
+                passed, total = 1, 1
 
         except Exception as e:
             error_message = str(e)
@@ -47,24 +46,9 @@ def coding_practice(username):
                 st.code(example, language="python")
             else:
                 st.info("🤔 I don't recognize this error yet. API fallback coming soon.")
-
-            passed = 0
-            total = 1
+            passed, total = 0, 1
 
         finally:
-            # Reset stdout
             sys.stdout = old_stdout
-
-            # ⏱ log duration
-            end_time = time.time()
-            duration = int(end_time - start_time)
-
-            # ✅ Save progress
-            log_progress(
-                username=username,
-                task_id="free_practice",
-                passed=passed,
-                total=total,
-                code=code,
-                duration=duration,
-            )
+            duration = int(time.time() - start_time)
+            log_progress(username, "free_practice", passed, total, code, duration)
