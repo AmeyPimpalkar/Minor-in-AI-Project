@@ -1,0 +1,155 @@
+{
+  "string": {
+    "definition": "A string is a data type that represents a sequence of characters, used for handling text.",
+    "examples": [
+      "'hello'",
+      "'Python is fun!'",
+      "'12345'"
+    ],
+    "real_life_analogy": "A string is like a sentence written on a piece of paper. You can't change the words once they are written, but you can copy the sentence and rewrite it with new words on a new piece of paper.",
+    "beginner_explanation": "Strings are used for text in Python. You create a string by putting letters, words, or sentences inside quotation marks, like single (') or double (\") quotes.",
+    "intermediate_explanation": "A string is an immutable sequence of Unicode characters. This means its content cannot be changed after creation. Any operation that appears to modify a string, such as concatenation or slicing, actually returns a new string object.",
+    "common_mistakes": [
+      "Forgetting to close quotation marks.",
+      "Using single quotes and double quotes inconsistently."
+    ],
+    "mini_project": "Palindrome Checker: Write a program that asks the user for a word and checks if it reads the same backward as it does forward. This project practices string manipulation, indexing, and conditional logic.",
+    "quiz_questions": [
+      {
+        "question": "What will 'Python'[:2] return?",
+        "options": [
+          "a) 'tho'",
+          "b) 'th'",
+          "c) 'thon'",
+          "d) 'yth'"
+        ],
+        "answer": "a"
+      },
+      {
+        "question": "Which operator is used to concatenate two strings in Python?",
+        "options": [
+          "a) &",
+          "b) +",
+          "c) *",
+          "d) %"
+        ],
+        "answer": "b"
+      }
+    ]
+  },
+  "float": {
+    "definition": "A float, or floating-point number, is a data type that represents real numbers with a decimal component.",
+    "examples": [
+      "pi = 3.14159",
+      "result = 10 / 4",
+      "scientific = 1.25e5",
+      "converted_float = float('123.45')"
+    ],
+    "real_life_analogy": "A float is like a measuring tape with a limited number of markings. You can get very close to an exact measurement, but some fractional values (like 1/3) can only be an approximation.",
+    "beginner_explanation": "Floats are numbers with a decimal point. They are used for things that aren't whole numbers, like prices ($1.99) or measurements (2.5 feet).",
+    "intermediate_explanation": "The float type is based on the IEEE 754 standard for binary floating-point arithmetic. This means some decimal values (like 0.1) cannot be represented exactly, leading to small rounding errors that can accumulate in calculations.",
+    "common_mistakes": [
+      "Expecting exact results from floating-point arithmetic.",
+      "Using floats for equality comparisons without a tolerance."
+    ],
+    "mini_project": "Compound Interest Calculator: Create a program that asks for a principal amount, an annual interest rate, and a number of years. Use float values to calculate the final amount with interest compounded annually.",
+    "quiz_questions": [
+      {
+        "question": "How can you create a float from a string '3.14'?",
+        "options": [
+          "a) `float('3.14')`",
+          "b) `int('3.14')`",
+          "c) `'3.14'.float()`",
+          "d) `float.convert('3.14')`"
+        ],
+        "answer": "a"
+      }
+    ]
+  },
+  "list": {
+    "definition": "A list is an ordered, mutable collection of items enclosed in square brackets.",
+    "examples": [
+      "fruits = ['apple', 'banana', 'cherry']",
+      "fruits.append('orange')",
+      "fruits.remove('apple')"
+    ],
+    "real_life_analogy": "A list is like a shopping list written on a notepad. You can add new items, cross out items you've bought, or change the quantity of an item at any time.",
+    "beginner_explanation": "A list is a container that can hold many items in a specific order. You can change the items in a list, add new ones, or take some out.",
+    "intermediate_explanation": "Lists are mutable sequences, meaning their contents can be modified in-place after creation. When a list is assigned to a new variable without an explicit copy, both variables refer to the same object in memory, a concept known as aliasing.",
+    "common_mistakes": [
+      "Modifying a list while iterating over it.",
+      "Confusing list indexing with slicing."
+    ],
+    "mini_project": "Simple To-Do List: Create a command-line program where a user can add, view, and remove tasks from a list. This project reinforces common list methods and user interaction with loops.",
+    "quiz_questions": [
+      {
+        "question": "Which method is used to add an element to the end of a list?",
+        "options": [
+          "a) `insert()`",
+          "b) `add()`",
+          "c) `append()`",
+          "d) `extend()`"
+        ],
+        "answer": "c"
+      }
+    ]
+  },
+  "loop": {
+    "definition": "A loop is a programming construct that repeats a block of code until a certain condition is met.",
+    "examples": [
+      "for i in range(5):\n    print(i)",
+      "fruits = ['apple', 'banana', 'cherry']\nfor fruit in fruits:\n    print(fruit)",
+      "count = 0\nwhile count < 3:\n    print('Hello')\n    count += 1"
+    ],
+    "real_life_analogy": "A for loop is like following a recipe with a fixed number of steps (e.g., stir for 5 minutes). A while loop is like a quest that continues until a condition is met (e.g., keep stirring until the sauce thickens).",
+    "beginner_explanation": "Loops are a way to tell the computer to do the same thing over and over again without you having to write the code multiple times.",
+    "intermediate_explanation": "A for loop is a definite iteration tool for when the number of repetitions is known in advance. A while loop is for indefinite iteration, continuing as long as its condition remains true. The choice between them depends on whether the number of iterations is predetermined.",
+    "common_mistakes": [
+      "Creating an infinite `while` loop by writing a condition that never becomes false.",
+      "Modifying a list or iterable while looping over it.",
+      "Using `range(len())` to access elements by index in a `for` loop."
+    ],
+    "mini_project": "Number Guessing Game: The program thinks of a random number, and the user has to guess it. The program gives hints ('Too high!', 'Too low!') and the game continues with a `while` loop until the user guesses correctly.",
+    "quiz_questions": [
+      {
+        "question": "What will the following code print? `for i in range(2):\n    for j in range(2):\n        print(i, j)`",
+        "options": [
+          "a) 0 0\n0 1\n1 0\n1 1",
+          "b) 0 0\n1 1",
+          "c) 0 1\n0 1",
+          "d) 1 1\n1 1\n0 0\n0 0"
+        ],
+        "answer": "a"
+      }
+    ]
+  },
+  "function": {
+    "definition": "A function is a named, reusable block of code that performs a specific task.",
+    "examples": [
+      "def greet(name):\n    return f'Hello, {name}!'",
+      "def add_numbers(a, b):\n    return a + b",
+      "greet('Alice')",
+      "sum_result = add_numbers(5, 10)"
+    ],
+    "real_life_analogy": "A function is like a coffee machine. You give it inputs (water, coffee beans) and press a button (call the function). It performs a complex task inside (a 'black box') and gives you a predictable output (coffee).",
+    "beginner_explanation": "A function is a mini-program that you can create and give a name. It lets you use the same piece of code over and over again without rewriting it.",
+    "intermediate_explanation": "Functions promote code reuse and modularity by encapsulating logic. They create a local namespace for their variables, protecting them from outside interference. Inputs are passed via parameters, and results are returned with the `return` statement, which can send back multiple values in a tuple.",
+    "common_mistakes": [
+      "Forgetting to include a `return` statement when needed.",
+      "Confusing arguments with parameters."
+    ],
+    "mini_project": "Basic Calculator: Write a program with separate functions for each arithmetic operation (e.g., `add()`, `subtract()`, `multiply()`, `divide()`). Have the main program ask the user for two numbers and an operation, then call the appropriate function to get the result.",
+    "quiz_questions": [
+      {
+        "question": "What is the purpose of the `return` statement in a function?",
+        "options": [
+          "a) To print the result of the function.",
+          "b) To exit the function without returning a value.",
+          "c) To send a value back to the caller of the function.",
+          "d) To define the function's parameters."
+        ],
+        "answer": "c"
+      }
+    ]
+  }
+}
