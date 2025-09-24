@@ -15,8 +15,14 @@ def dashboard(username):
     df = pd.DataFrame(data)
 
     # ✅ Success Rate
-    df["success_rate"] = df["passed"] / df["total"] * 100
+    df["success_rate"] = df.apply(
+    lambda row: (row["passed"] / row["total"]) * 100 if row["total"] > 0 else 0,
+    axis=1)
+
     overall_rate = df["success_rate"].mean()
+    if pd.isna(overall_rate) or overall_rate == float("inf"):
+        overall_rate = 0
+
     st.subheader("Overall Success Rate")
     st.progress(int(overall_rate))
     st.write(f"Average success rate: **{overall_rate:.2f}%**")

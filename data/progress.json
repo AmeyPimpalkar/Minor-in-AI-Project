@@ -38,5 +38,35 @@
     "timestamp": "2025-09-22T12:21:56.323742",
     "duration_seconds": 0,
     "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 3,
+    "total": 0,
+    "code": "word = input()\nprint(word[::-1])",
+    "timestamp": "2025-09-24T08:30:57.029649",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 0,
+    "total": 0,
+    "code": "",
+    "timestamp": "2025-09-24T08:31:09.649023",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 0,
+    "total": 0,
+    "code": "",
+    "timestamp": "2025-09-24T08:47:35.066041",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
   }
 ]

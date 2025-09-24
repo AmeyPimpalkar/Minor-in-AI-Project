@@ -106,9 +106,12 @@ def exercises(username):
 
     code = code = st.text_area("✍️ Write your solution here:", height=240)
 
+    passed = 0
+    total = 0
+
     if st.button("Run Solution"):
         start_time = time.time()   # ⏱ Start timing when Run button is clicked
-        total = len(test_cases)
+        total = len(test_cases) if test_cases else 0
         passed = 0
 
     for i, case in enumerate(test_cases, start=1):
@@ -182,7 +185,10 @@ def exercises(username):
     duration = int(end_time - start_time)
 
     st.markdown("---")
-    st.write(f"**Summary:** Passed {passed}/{total} test cases.")
+    if total > 0:
+        st.write(f"**Summary:** Passed {passed}/{total} test cases.")
+    else:
+        st.info("No test cases available for this problem.")
 
     # ✅ Save progress
     from core.progress import log_progress
