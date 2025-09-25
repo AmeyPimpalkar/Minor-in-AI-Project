@@ -33,6 +33,7 @@ from app import login as login_module
 from app import coding as coding_module
 from app import exercises as exercises_module
 from app import dashboard as dashboard_module
+from app import concepts as concepts_module
 
 def main():
     st.set_page_config(page_title="AI Coding Mentor", layout="wide")
@@ -60,6 +61,8 @@ def main():
             exercises_module.exercises(st.session_state.user)
         elif choice == "Dashboard":
             dashboard_module.dashboard(st.session_state.user)
+        elif choice == "Concepts":
+            concepts_module.concepts(st.session_state.user)
         elif choice == "Logout":
             st.session_state.logged_in = False
             st.session_state.user = None
