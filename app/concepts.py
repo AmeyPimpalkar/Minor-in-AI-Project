@@ -5,6 +5,8 @@ import os
 
 CONCEPTS_DB = "data/concepts.json"
 
+
+
 def load_concepts():
     if not os.path.exists(CONCEPTS_DB):
         return {}

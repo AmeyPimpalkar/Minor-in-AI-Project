@@ -108,5 +108,15 @@
     "timestamp": "2025-09-25T10:00:51.666094",
     "duration_seconds": 0,
     "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 0,
+    "total": 0,
+    "code": "",
+    "timestamp": "2025-09-25T10:02:21.662906",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
   }
 ]

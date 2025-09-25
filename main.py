@@ -52,7 +52,7 @@ def main():
         st.sidebar.success(f"👋 Welcome, {st.session_state.user}")
         choice = st.sidebar.radio(
             "Navigation",
-            ["Dashboard", "Coding Practice", "Exercises", "Logout"]
+            ["Dashboard", "Concepts","Coding Practice", "Exercises", "Logout"]
         )
 
         if choice == "Coding Practice":
