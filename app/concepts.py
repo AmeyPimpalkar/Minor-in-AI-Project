@@ -5,8 +5,6 @@ import os
 
 CONCEPTS_DB = "data/concepts.json"
 
-
-
 def load_concepts():
     if not os.path.exists(CONCEPTS_DB):
         return {}
@@ -14,20 +12,37 @@ def load_concepts():
         return json.load(f)
 
 def concepts(username):
-    st.header("📘 Learn Python Concepts")
+    st.header("📘 Learn Programming Concepts")
+
+    # Language selector (default to Python)
+    language = st.selectbox("Select Language:", ["Python"], index=0)
+
+    # Initialize familiarity per language in session_state
+    if "familiarity" not in st.session_state:
+        st.session_state["familiarity"] = {}
+    if language not in st.session_state["familiarity"]:
+        st.session_state["familiarity"][language] = st.radio(
+            f"How familiar are you with {language}?",
+            ["Beginner", "Intermediate", "Just Revising"],
+            key=f"familiarity_{language}"
+        )
+    
+    familiarity = st.session_state["familiarity"][language]
+    if st.button("🔄 Reset Familiarity"):
+        if "familiarity" in st.session_state:
+            st.session_state.pop("familiarity")
 
     data = load_concepts()
     if not data:
         st.error("No concepts found in data/concepts.json")
         return
 
-    # 🔹 Search option
+    # Search option
     search = st.text_input("🔍 Search for a concept (e.g., string, list, loop):").lower()
 
     if search and search in data:
         concept_key = search
     else:
-        # Dropdown if no search
         concept_key = st.selectbox("Choose a concept:", list(data.keys()))
 
     concept = data[concept_key]
@@ -35,16 +50,24 @@ def concepts(username):
     st.subheader(concept_key.capitalize())
     st.markdown(f"**Definition:** {concept.get('definition')}")
 
-    with st.expander("👶 Beginner Explanation"):
-        st.write(concept.get("beginner_explanation"))
-
-    with st.expander("⚡ Intermediate Explanation"):
-        st.write(concept.get("intermediate_explanation"))
+    # Show explanations based on familiarity
+    if familiarity == "Beginner":
+        with st.expander("👶 Beginner Explanation", expanded=True):
+            st.write(concept.get("beginner_explanation"))
+    elif familiarity == "Intermediate":
+        # with st.expander("👶 Beginner Explanation", expanded=True):
+        #     st.write(concept.get("beginner_explanation"))
+        with st.expander("⚡ Intermediate Explanation", expanded=True):
+            st.write(concept.get("intermediate_explanation"))
+    elif familiarity == "Just Revising":
+        st.warning("Skipping explanations, let’s test your knowledge!")
+        with st.expander("Explanation", expanded=True):
+            st.write(concept.get("intermediate_explanation"))
 
     if concept.get("examples"):
         st.markdown("**Examples:**")
         for ex in concept["examples"]:
-            st.code(ex, language="python")
+            st.code(ex, language=language.lower())
 
     if concept.get("real_life_analogy"):
         st.info(f"💡 Analogy: {concept['real_life_analogy']}")
@@ -70,6 +93,9 @@ def concepts(username):
                 else:
                     st.error(f"❌ Wrong! Correct answer is: {q['answer']}")
 
-    # Future: add "Explain Better" button → API fallback
+    # “Need more help” button
+    if st.button("🤔 Need More Help?"):
+        st.info("🔍 This feature will fetch simpler explanations and real-world examples from an external API. Coming soon!")
+
     st.markdown("---")
     st.caption(f"User: {username}")

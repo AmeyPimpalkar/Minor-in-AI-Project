@@ -1,16 +1,20 @@
-)",
-    "hint": "Make sure the key you are trying to look up is present in the dictionary."
+[
+  {
+    "error_name": "KeyError",
+    "explanation": "You're trying to retrieve a value from a dictionary using a key that does not exist. Keys must match exactly.",
+    "code_snippet": "student = {'name': 'Bob'}\nprint(student['Name'])",
+    "hint": "Dictionary keys are case-sensitive. The key 'name' is not the same as 'Name'."
   },
   {
     "error_name": "IndexError",
     "explanation": "This error means you're trying to access an item in a list or string using an index that is outside the allowed range. Python uses zero-based indexing.",
-    "code_snippet": "fruits = ['apple', 'banana', 'cherry']\nprint(fruits)",
+    "code_snippet": "fruits = ['apple', 'banana', 'cherry']\nprint(fruits[3])",
     "hint": "The first item in the list is at index 0, and the last item is at index 2."
   },
   {
     "error_name": "AttributeError",
     "explanation": "This error happens when you try to access a method or attribute that an object doesn't have. It's like asking a list to do something only a string can.",
-    "code_snippet": "my_list = \nmy_list.append(\"hello\")\nmy_list.upper()",
+    "code_snippet": "my_list = []\nmy_list.append(\"hello\")\nmy_list.upper()",
     "hint": "The `.upper()` method is for strings, not lists. Check the type of the variable you are working with."
   },
   {
@@ -22,20 +26,14 @@
   {
     "error_name": "TypeError",
     "explanation": "This error occurs when you try to use an object in a way it was not intended to be used. For example, trying to use a list like a function.",
-    "code_snippet": "numbers = \nresult = numbers(0)",
-    "hint": "The variable 'numbers' is a list, not a function. You should use square brackets `` to access its elements."
+    "code_snippet": "numbers = [1, 2, 3]\nresult = numbers(0)",
+    "hint": "The variable 'numbers' is a list, not a function. You should use square brackets `[]` to access its elements."
   },
   {
     "error_name": "IndentationError",
     "explanation": "This error is common when mixing spaces and tabs, or when a line in a code block is not indented by the same amount as the others.",
     "code_snippet": "for i in range(2):\n    print(i)\n print(\"Done\")",
     "hint": "All lines inside a code block (like a `for` loop) must have the same indentation level."
-  },
-  {
-    "error_name": "KeyError",
-    "explanation": "You're trying to retrieve a value from a dictionary using a key that does not exist. Keys must match exactly.",
-    "code_snippet": "student = {'name': 'Bob'}\nprint(student['Name'])",
-    "hint": "Dictionary keys are case-sensitive. The key 'name' is not the same as 'Name'."
   },
   {
     "error_name": "NameError",
