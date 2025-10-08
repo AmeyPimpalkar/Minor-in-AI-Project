@@ -1,0 +1,166 @@
+[
+  {
+    "error_message": "IndexError: list index out of range",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "My loop is going one step too far and causing an index error.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "I tried to get an element from an empty list.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "The index is out of bounds for the list.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "IndexError: string index out of range",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "Using a negative index that is too large for the list size.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "The program is trying to access an index that doesn't exist.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "My list has 3 elements, so the valid indices are 0, 1, 2. I tried to access index 3.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "The list length changed inside the loop, now the index is invalid.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "KeyError: 'address'",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "I'm getting a KeyError because the key I'm looking for isn't in the dictionary.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "Traceback (most recent call last):\n  File \"main.py\", line 6, in <module>\n    print(user_data['last_name'])\nKeyError: 'last_name'",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "I misspelled a dictionary key.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "The program is trying to access a dictionary key that does not exist.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "The JSON data from the API was missing a field I expected.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "Trying to get a value from a dict, but the key is not present.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "The key 'id' was not found in the dictionary.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "I'm trying to delete a key that doesn't exist in the dictionary.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "The dictionary is empty, but the code tries to access a key.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "AttributeError: 'int' object has no attribute 'append'",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "I tried to call a string method on an integer and got an AttributeError.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "AttributeError: 'NoneType' object has no attribute 'lower'",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "My function returned None, and then the program tried to call a method on it.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "AttributeError: 'list' object has no attribute 'add'. Did you mean: 'append'?",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "I think I misspelled the attribute name.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "The object doesn't have the method I'm trying to call.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "AttributeError: module 'os' has no attribute 'get_path'",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "The variable is None, so I can't access any attributes on it.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "I tried to use a dictionary method on a list.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "The code runs, but the final calculation is incorrect.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "My function to calculate the average is giving the wrong number.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The loop should run 10 times, but it's only running 9 times. It's an off-by-one error.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The program runs without any errors, but the output file is empty when it should have data.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The if condition should be using '<=' instead of '<' to include the last number.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "There's a mistake in the formula, the order of operations is wrong.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The program is supposed to add numbers, but it looks like it's multiplying them instead.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The sorting algorithm is sorting in reverse order.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The 'else' part of my if/else statement is never reached, even when the condition is false.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The total is always zero because the variable is being reset inside the loop.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The code works, but the output is not what I expected.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "I'm calculating the area of a rectangle but using width * width instead of width * height.",
+    "category": "LogicError"
+  }
+]
