@@ -110,6 +110,7 @@ def exercises(username):
     total = 0
 
     if st.button("Run Solution"):
+        duration = 0  # ✅ initialize to avoid UnboundLocalError
         start_time = time.time()   # ⏱ Start timing when Run button is clicked
         total = len(test_cases) if test_cases else 0
         passed = 0

@@ -7,51 +7,60 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 ERROR_DB = "data/errors.json"
 MODEL_PATH = "models/error_classifier.pkl"
 
-# ✅ Load known errors
+# ✅ Load known errors safely
 def load_errors():
     if not os.path.exists(ERROR_DB):
         return []
-    with open(ERROR_DB, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with open(ERROR_DB, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        print("⚠️ Error: Could not decode errors.json")
+        return []
 
-# ✅ Load AI model
+# ✅ Load AI model if available
 def load_model():
     if not os.path.exists(MODEL_PATH):
         return None, None
-    with open(MODEL_PATH, "rb") as f:
-        model_data = pickle.load(f)
-    return model_data["model"], model_data["vectorizer"]
+    try:
+        with open(MODEL_PATH, "rb") as f:
+            model_data = pickle.load(f)
+        return model_data.get("model"), model_data.get("vectorizer")
+    except Exception as e:
+        print(f"⚠️ Model loading failed: {e}")
+        return None, None
 
-# ✅ Main explain function
+# ✅ Explain errors using both static DB + AI model
 def explain_error(error_message: str):
     errors = load_errors()
     model, vectorizer = load_model()
 
-    # Step 1 → Try to find known error
+    # Step 1 → Look for known pattern in errors.json
     for err in errors:
-        if err.get("error_message") and err["error_message"].lower() in error_message.lower():
+        msg = err.get("error_message", "").lower()
+        if msg and msg in error_message.lower():
             category = err.get("category", "Unknown")
-            explanation = f"This error is categorized as **{category}**. It's likely caused by something similar to the known examples."
-            fix_hint = f"Try reviewing {category} in your code."
-            example = None
+            explanation = f"📘 This error matches a known example of **{category}**."
+            fix_hint = f"💡 Try reviewing your code for issues related to **{category}**."
+            example = f"Example: Check your index range, key existence, or attribute name depending on the type."
             return explanation, fix_hint, example
 
-    # Step 2 → If unknown, use AI model to predict
+    # Step 2 → If unknown, ask the AI model to classify
     if model and vectorizer:
         try:
             X = vectorizer.transform([error_message])
             predicted_category = model.predict(X)[0]
-            explanation = f"This seems to be related to **{predicted_category}**."
+            explanation = f"🤖 AI detected this might be a **{predicted_category}**."
             fix_hint = {
-                "IndexError": "Check your list or string indices. Make sure you aren’t accessing beyond range.",
-                "KeyError": "Ensure the key exists in your dictionary before accessing it.",
-                "AttributeError": "Check if the variable type supports the method or property you’re calling.",
-                "LogicError": "Your logic may not match your intended outcome. Try printing intermediate values."
-            }.get(predicted_category, "Try reviewing your logic for potential issues.")
-            example = f"Example fix for {predicted_category} errors can often involve checking variable types or conditions."
+                "IndexError": "Ensure you’re not accessing out-of-range elements in lists or strings.",
+                "KeyError": "Double-check that dictionary keys exist before accessing them.",
+                "AttributeError": "Verify the variable type supports the attribute or method being called.",
+                "LogicError": "Your code logic might not match your intended outcome. Try printing intermediate results."
+            }.get(predicted_category, "Try rechecking your logic or reviewing variable usage.")
+            example = f"Example fix for **{predicted_category}** could involve validating data or conditions before use."
             return explanation, fix_hint, example
         except Exception as e:
-            return None, f"AI prediction failed: {e}", None
+            return None, f"⚠️ AI prediction failed: {e}", None
 
     # Step 3 → Total fallback
-    return None, "Sorry, I couldn’t recognize this error. Please review your code manually or check docs.", None
+    return None, "❌ Couldn’t recognize this error. Try revisiting your logic or checking documentation.", None

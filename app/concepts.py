@@ -20,17 +20,29 @@ def concepts(username):
     # Initialize familiarity per language in session_state
     if "familiarity" not in st.session_state:
         st.session_state["familiarity"] = {}
+
+    # Ask familiarity only if not set
     if language not in st.session_state["familiarity"]:
-        st.session_state["familiarity"][language] = st.radio(
+        familiarity = st.radio(
             f"How familiar are you with {language}?",
             ["Beginner", "Intermediate", "Just Revising"],
+            index=None,  # no default pre-selected option
             key=f"familiarity_{language}"
         )
-    
-    familiarity = st.session_state["familiarity"][language]
+        if familiarity:
+            st.session_state["familiarity"][language] = familiarity
+
+    # Show reset button
     if st.button("🔄 Reset Familiarity"):
-        if "familiarity" in st.session_state:
-            st.session_state.pop("familiarity")
+        if "familiarity" in st.session_state and language in st.session_state["familiarity"]:
+            del st.session_state["familiarity"][language]
+            st.success(f"Reset familiarity for {language}. Please reselect.")
+
+    # Ensure familiarity is defined
+    familiarity = st.session_state["familiarity"].get(language)
+    if not familiarity:
+        st.info("Please select your familiarity level to continue.")
+        return
 
     data = load_concepts()
     if not data:
@@ -54,11 +66,11 @@ def concepts(username):
     if familiarity == "Beginner":
         with st.expander("👶 Beginner Explanation", expanded=True):
             st.write(concept.get("beginner_explanation"))
+
     elif familiarity == "Intermediate":
-        # with st.expander("👶 Beginner Explanation", expanded=True):
-        #     st.write(concept.get("beginner_explanation"))
         with st.expander("⚡ Intermediate Explanation", expanded=True):
             st.write(concept.get("intermediate_explanation"))
+
     elif familiarity == "Just Revising":
         st.warning("Skipping explanations, let’s test your knowledge!")
         with st.expander("Explanation", expanded=True):
