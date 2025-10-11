@@ -35,6 +35,7 @@ from app import exercises as exercises_module
 from app import dashboard as dashboard_module
 from app import concepts as concepts_module
 
+
 def main():
     st.set_page_config(page_title="AI Coding Mentor", layout="wide")
     st.title("🤖 AI Coding Mentor")
