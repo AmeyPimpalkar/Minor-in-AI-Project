@@ -11,6 +11,12 @@ from core.progress import log_progress
 def coding_practice(username):
     st.subheader("📝 Try Writing Python Code")
 
+    # ✅ Safe defaults
+    passed = 0
+    total = 0
+    duration = 0
+    st.subheader("📝 Try Writing Python Code")
+
     # ✅ Code editor instead of text_area
     code = st.text_area("Write your Python code here:", height=200)
 

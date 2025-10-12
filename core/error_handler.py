@@ -4,6 +4,9 @@ import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from core.api_helper import explain_with_huggingface
+import requests
+from dotenv import load_dotenv
+from pathlib import Path
 
 ERROR_DB = "data/errors.json"
 MODEL_PATH = "models/error_classifier.pkl"
@@ -31,8 +34,8 @@ def load_model():
         print(f"⚠️ Model loading failed: {e}")
         return None, None
 
-# ✅ Explain errors using both static DB + AI model
-def explain_error(error_message: str):
+def explain_error(error_message):
+    """Explain an error using local DB, AI model, or Hugging Face fallback."""
     errors = load_errors()
     model, vectorizer = load_model()
 
@@ -46,7 +49,7 @@ def explain_error(error_message: str):
             example = f"Example: Check your index range, key existence, or attribute name depending on the type."
             return explanation, fix_hint, example
 
-    # Step 2 → If unknown, ask the AI model to classify
+    # Step 2 → Use trained local model if available
     if model and vectorizer:
         try:
             X = vectorizer.transform([error_message])
@@ -63,12 +66,48 @@ def explain_error(error_message: str):
         except Exception as e:
             return None, f"⚠️ AI prediction failed: {e}", None
 
-    # Step 3 → Total fallback
-    return None, "❌ Couldn’t recognize this error. Try revisiting your logic or checking documentation.", None
+    # Step 3 → Fallback to Hugging Face API
+    result = call_huggingface_fallback(error_message)
+    if isinstance(result, tuple):
+        if len(result) == 3:
+            return result
+        else:
+            return result[:3]
+    else:
+        return result, None, None
 
 
-def explain_error(error_message):
-    # Your existing explanation logic here...
-    # If local model can't recognize:
-    hf_response = explain_with_huggingface(f"Explain this Python error in simple terms: {error_message}")
-    return hf_response
+# Load Hugging Face API key
+load_dotenv(dotenv_path=Path(".") / ".env")
+HF_TOKEN = os.getenv("HF_API_TOKEN")
+
+def call_huggingface_fallback(error_message):
+    """Send unknown error to Hugging Face zero-shot model and get probable category."""
+    if not HF_TOKEN:
+        return "⚠️ API key missing", "Please configure HF_API_TOKEN in .env", None
+
+    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+    API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+    data = {
+        "inputs": error_message,
+        "parameters": {
+            "candidate_labels": [
+                "SyntaxError", "NameError", "IndexError",
+                "KeyError", "AttributeError", "LogicError"
+            ]
+        }
+    }
+
+    try:
+        response = requests.post(API_URL, headers=headers, json=data, timeout=8)
+        if response.status_code == 200:
+            result = response.json()
+            best_label = result["labels"][0]
+            confidence = result["scores"][0]
+            explanation = f"The error likely belongs to **{best_label}** category (confidence: {confidence:.2f})."
+            fix_hint = "You can review your code based on this category."
+            return explanation, fix_hint, None
+        else:
+            return f"⚠️ API error {response.status_code}", "Could not classify error.", None
+    except Exception as e:
+        return f"⚠️ Exception during API call: {e}", "Network or API issue", None

@@ -138,5 +138,45 @@
     "timestamp": "2025-10-09T05:24:10.761968",
     "duration_seconds": 0,
     "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "print(undefined_var)",
+    "timestamp": "2025-10-12T17:09:01.777899",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "print(undefined_var)",
+    "timestamp": "2025-10-12T17:12:58.510176",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "print(undefined_var)",
+    "timestamp": "2025-10-12T17:14:05.723050",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(undefined_var)",
+    "timestamp": "2025-10-12T17:15:03.087287",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
   }
 ]
