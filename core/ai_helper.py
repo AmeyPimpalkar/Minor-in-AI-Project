@@ -25,3 +25,4 @@ def predict_error_category(error_message):
     prediction = model.predict(X)[0]
     confidence = max(model.predict_proba(X)[0])
     return {"category": prediction, "confidence": confidence}
+

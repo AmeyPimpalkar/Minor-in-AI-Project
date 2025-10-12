@@ -3,6 +3,7 @@ import json
 import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
+from core.api_helper import explain_with_huggingface
 
 ERROR_DB = "data/errors.json"
 MODEL_PATH = "models/error_classifier.pkl"
@@ -64,3 +65,10 @@ def explain_error(error_message: str):
 
     # Step 3 → Total fallback
     return None, "❌ Couldn’t recognize this error. Try revisiting your logic or checking documentation.", None
+
+
+def explain_error(error_message):
+    # Your existing explanation logic here...
+    # If local model can't recognize:
+    hf_response = explain_with_huggingface(f"Explain this Python error in simple terms: {error_message}")
+    return hf_response
