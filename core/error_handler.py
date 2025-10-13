@@ -8,8 +8,52 @@ import requests
 from dotenv import load_dotenv
 from pathlib import Path
 
+# File paths
 ERROR_DB = "data/errors.json"
 MODEL_PATH = "models/error_classifier.pkl"
+USER_LOG = "data/user_learning_log.json"
+
+
+# ✅ Log user mistakes and repetitions
+def log_user_error(username, category):
+    """Logs user mistakes by category for personalized feedback."""
+    if not username or not category:
+        return
+
+    if not os.path.exists(USER_LOG):
+        with open(USER_LOG, "w", encoding="utf-8") as f:
+            json.dump({}, f)
+
+    with open(USER_LOG, "r", encoding="utf-8") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = {}
+
+    if username not in data:
+        data[username] = {}
+    data[username][category] = data[username].get(category, 0) + 1
+
+    with open(USER_LOG, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
+# ✅ Reinforcement logic
+def get_reinforcement_message(username, category):
+    """If user repeats same error multiple times, suggest concept revision."""
+    if not username or not os.path.exists(USER_LOG):
+        return ""
+
+    try:
+        with open(USER_LOG, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        count = data.get(username, {}).get(category, 0)
+        if count >= 3:
+            return f"\n\n🧠 It looks like you've encountered **{category}** errors several times. Would you like to review this concept?"
+    except Exception:
+        pass
+    return ""
+
 
 # ✅ Load known errors safely
 def load_errors():
@@ -21,6 +65,7 @@ def load_errors():
     except json.JSONDecodeError:
         print("⚠️ Error: Could not decode errors.json")
         return []
+
 
 # ✅ Load AI model if available
 def load_model():
@@ -34,7 +79,9 @@ def load_model():
         print(f"⚠️ Model loading failed: {e}")
         return None, None
 
-def explain_error(error_message):
+
+# ✅ Explain error with model or fallback
+def explain_error(error_message, username=None):
     """Explain an error using local DB, AI model, or Hugging Face fallback."""
     errors = load_errors()
     model, vectorizer = load_model()
@@ -44,16 +91,21 @@ def explain_error(error_message):
         msg = err.get("error_message", "").lower()
         if msg and msg in error_message.lower():
             category = err.get("category", "Unknown")
+            log_user_error(username, category)
+            reinforcement = get_reinforcement_message(username, category)
             explanation = f"📘 This error matches a known example of **{category}**."
             fix_hint = f"💡 Try reviewing your code for issues related to **{category}**."
             example = f"Example: Check your index range, key existence, or attribute name depending on the type."
-            return explanation, fix_hint, example
+            return explanation + reinforcement, fix_hint, example
 
     # Step 2 → Use trained local model if available
     if model and vectorizer:
         try:
             X = vectorizer.transform([error_message])
             predicted_category = model.predict(X)[0]
+            log_user_error(username, predicted_category)
+            reinforcement = get_reinforcement_message(username, predicted_category)
+
             explanation = f"🤖 AI detected this might be a **{predicted_category}**."
             fix_hint = {
                 "IndexError": "Ensure you’re not accessing out-of-range elements in lists or strings.",
@@ -62,25 +114,32 @@ def explain_error(error_message):
                 "LogicError": "Your code logic might not match your intended outcome. Try printing intermediate results."
             }.get(predicted_category, "Try rechecking your logic or reviewing variable usage.")
             example = f"Example fix for **{predicted_category}** could involve validating data or conditions before use."
-            return explanation, fix_hint, example
+            return explanation + reinforcement, fix_hint, example
         except Exception as e:
             return None, f"⚠️ AI prediction failed: {e}", None
 
     # Step 3 → Fallback to Hugging Face API
     result = call_huggingface_fallback(error_message)
     if isinstance(result, tuple):
-        if len(result) == 3:
-            return result
-        else:
-            return result[:3]
+        explanation, fix_hint, example = result
+
+        # Try to extract probable label
+        for label in ["SyntaxError", "NameError", "IndexError", "KeyError", "AttributeError", "LogicError"]:
+            if label.lower() in explanation.lower():
+                log_user_error(username, label)
+                reinforcement = get_reinforcement_message(username, label)
+                return explanation + reinforcement, fix_hint, example
+        return result
     else:
         return result, None, None
 
 
-# Load Hugging Face API key
+# ✅ Load Hugging Face API key
 load_dotenv(dotenv_path=Path(".") / ".env")
 HF_TOKEN = os.getenv("HF_API_TOKEN")
 
+
+# ✅ Hugging Face fallback function
 def call_huggingface_fallback(error_message):
     """Send unknown error to Hugging Face zero-shot model and get probable category."""
     if not HF_TOKEN:
