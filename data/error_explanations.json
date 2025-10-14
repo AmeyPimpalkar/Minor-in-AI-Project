@@ -1,0 +1,82 @@
+{
+  "NameError": {
+    "meaning": "Python cannot find a name for a variable, function, class, or module that you are trying to use.",
+    "cause": "This usually happens due to typos in the name, trying to use a variable before it has been assigned a value, or attempting to access an identifier (like a function or module) that hasn't been defined or imported into the current scope.",
+    "fix": [
+      "Check the spelling of the name to ensure it exactly matches the declaration.",
+      "Verify that the variable or function was defined or initialized before the line where the error occurs.",
+      "If the name belongs to an external library, ensure the necessary module was correctly imported using `import`."
+    ],
+    "example": "```python\n# Code causing NameError\npi_value = 3.14\nprint(pie_value) # Typo: 'pie_value' instead of 'pi_value'\n\n# Corrected code\npi_value = 3.14\nprint(pi_value) # Fix: Corrected the variable name to match the definition\n```"
+  },
+  "IndexError": {
+    "meaning": "You attempted to access an item in a sequence (like a list, tuple, or string) using an index number that is outside the range of valid indices.",
+    "cause": "Python sequences are zero-indexed, meaning a list of N items has indices from 0 to N-1. This error occurs when you try to access the Nth index (which is equivalent to the list's length), or any negative index that is too large, or any index far beyond the list's bounds.",
+    "fix": [
+      "Always remember that list indexing starts at 0.",
+      "Check the length of the list using `len()` before accessing an index.",
+      "In loops, ensure the iteration range stops before the list's length (e.g., use `range(len(my_list))` to get indices 0 to N-1)."
+    ],
+    "example": "```python\n# Code causing IndexError\ncolors = ['red', 'green', 'blue'] # Length is 3, valid indices are 0, 1, 2\nprint(colors[3]) # Error: Trying to access index 3\n\n# Corrected code\ncolors = ['red', 'green', 'blue']\nprint(colors[2]) # Fix: Accessing the last element at index 2\n# Alternative Fix: Check if the index is valid before accessing\nlast_index = len(colors) - 1\nprint(colors[last_index]) \n```"
+  },
+  "KeyError": {
+    "meaning": "You tried to access a value in a dictionary using a key that does not exist within that dictionary.",
+    "cause": "Common causes are simple spelling mistakes in the key name, forgetting that dictionary keys are case-sensitive (e.g., 'Name' is different from 'name'), or referencing a key that was simply never added to the dictionary.",
+    "fix": [
+      "Use the `.get()` method to safely access dictionary values, providing a default if the key is missing.",
+      "Check the dictionary keys using `dict.keys()` to confirm the key exists.",
+      "Ensure consistent capitalization and spelling of all key names."
+    ],
+    "example": "```python\n# Code causing KeyError\nstudent_data = {'name': 'Alice', 'grade': 'A'}\nprint(student_data['age']) # Error: 'age' key is missing\n\n# Corrected code (using .get() to prevent error)\nstudent_data = {'name': 'Alice', 'grade': 'A'}\nage = student_data.get('age', 'Key not found') # Safe access\nprint(age)\n```"
+  },
+  "AttributeError": {
+    "meaning": "You tried to access an attribute or call a method on an object that does not support it.",
+    "cause": "This often results from misspelling a method name, confusing objects of similar types (e.g., trying to use a list method on a string), or calling methods on an object that is unexpectedly None.",
+    "fix": [
+      "Check the object type using `type(object)` to confirm it supports the method or attribute.",
+      "Use `dir(object)` to see all available attributes and methods.",
+      "Ensure the object is not `None` before using it."
+    ],
+    "example": "```python\n# Code causing AttributeError\ngreeting = 'Hello world'\ngreeting.append('!') # Error: Strings do not have an .append() method\n\n# Corrected code\ngreeting = 'Hello world'\ncorrected_greeting = greeting + '!'\nprint(corrected_greeting)\n```"
+  },
+  "SyntaxError": {
+    "meaning": "This error means Python couldn’t understand your code’s structure or syntax.",
+    "cause": "Common causes include missing colons after control statements, unbalanced parentheses or quotes, and incorrect indentation.",
+    "fix": [
+      "Double-check your code for missing colons (`:`) after `if`, `for`, and `while` statements.",
+      "Ensure that parentheses, quotes, and brackets are properly opened and closed.",
+      "Maintain consistent indentation (spaces or tabs)."
+    ],
+    "example": "```python\n# Code causing SyntaxError\nif 5 > 2 print('Five is greater') # Missing colon\n\n# Corrected code\nif 5 > 2:\n    print('Five is greater')\n```"
+  },
+  "LogicError": {
+    "meaning": "Your code runs without crashing but produces an incorrect result due to flawed logic.",
+    "cause": "Common causes include wrong condition order, incorrect calculations, or forgetting to update variables in loops.",
+    "fix": [
+      "Use print statements or a debugger to trace variable values at each step.",
+      "Check if-else conditions to ensure they correctly represent your intended logic.",
+      "Validate formulas and loop boundaries carefully."
+    ],
+    "example": "```python\n# Code causing LogicError\ny = 6\nif y < 10:\n    print('A: y is less than 10')\nelif y < 20:\n    print('B: y is less than 20') # This block never runs for y=6\n\n# Corrected code\ny = 6\nif y < 10:\n    print('A: y is less than 10')\nelif 10 <= y < 20:\n    print('B: y is between 10 and 20')\n```"
+  },
+  "TypeError": {
+    "meaning": "An operation or function was used with an object of an inappropriate type.",
+    "cause": "Occurs when combining incompatible types (like adding a string to an integer) or calling something that isn’t callable.",
+    "fix": [
+      "Use `type()` to inspect variable types before combining or passing them into functions.",
+      "Convert data types explicitly using `int()`, `float()`, or `str()` when necessary.",
+      "Ensure you haven’t overwritten a built-in function name with a variable (e.g., `sum = 5`)."
+    ],
+    "example": "```python\n# Code causing TypeError\nage = 25\nyear_suffix = ' years old'\nresult = age + year_suffix # Error: Can't add int and str\n\n# Corrected code\nresult = str(age) + year_suffix\nprint(result)\n```"
+  },
+  "ValueError": {
+    "meaning": "A function received the right data type but an inappropriate value.",
+    "cause": "Happens when converting strings that don’t match the expected format or unpacking iterables into the wrong number of variables.",
+    "fix": [
+      "Verify that input values are valid and correctly formatted.",
+      "Handle potential invalid conversions using `try`/`except` blocks.",
+      "Ensure the number of variables matches the iterable length when unpacking."
+    ],
+    "example": "```python\n# Code causing ValueError (Conversion)\ninput_str = '42.5'\nnum = int(input_str) # Error: Can't convert decimal string to int\n\n# Corrected code\nnum = float(input_str)\nprint(num)\n\n# Example of ValueError (Unpacking)\nmy_list = [1, 2]\na, b, c = my_list # Error: Too few values to unpack\n\n# Corrected code\na, b = my_list\nprint(a, b)\n```"
+  }
+}

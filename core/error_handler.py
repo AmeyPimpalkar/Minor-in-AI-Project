@@ -7,11 +7,15 @@ from core.api_helper import explain_with_huggingface
 import requests
 from dotenv import load_dotenv
 from pathlib import Path
+import requests
+import concurrent.futures
+import streamlit as st
 
 # File paths
 ERROR_DB = "data/errors.json"
 MODEL_PATH = "models/error_classifier.pkl"
 USER_LOG = "data/user_learning_log.json"
+EXPLANATION_DB = "data/error_explanations.json"
 
 
 # ✅ Log user mistakes and repetitions
@@ -42,17 +46,28 @@ def log_user_error(username, category):
 def get_reinforcement_message(username, category):
     """If user repeats same error multiple times, suggest concept revision."""
     if not username or not os.path.exists(USER_LOG):
-        return ""
+        return None
 
     try:
         with open(USER_LOG, "r", encoding="utf-8") as f:
             data = json.load(f)
         count = data.get(username, {}).get(category, 0)
+
         if count >= 3:
-            return f"\n\n🧠 It looks like you've encountered **{category}** errors several times. Would you like to review this concept?"
+            message = (
+                f"🧠 You've encountered **{category}** errors {count} times. "
+                "Consider reviewing this concept in the Learn section."
+            )
+            return {
+                "message": message,
+                "category": category,
+                "count": count,
+                "action": "review_concept"
+            }
     except Exception:
         pass
-    return ""
+
+    return None
 
 
 # ✅ Load known errors safely
@@ -82,23 +97,42 @@ def load_model():
 
 # ✅ Explain error with model or fallback
 def explain_error(error_message, username=None):
-    """Explain an error using local DB, AI model, or Hugging Face fallback."""
-    errors = load_errors()
+    """Explain an error using local explanation DB, ML model, or Hugging Face fallback."""
     model, vectorizer = load_model()
 
-    # Step 1 → Look for known pattern in errors.json
-    for err in errors:
-        msg = err.get("error_message", "").lower()
-        if msg and msg in error_message.lower():
-            category = err.get("category", "Unknown")
-            log_user_error(username, category)
-            reinforcement = get_reinforcement_message(username, category)
-            explanation = f"📘 This error matches a known example of **{category}**."
-            fix_hint = f"💡 Try reviewing your code for issues related to **{category}**."
-            example = f"Example: Check your index range, key existence, or attribute name depending on the type."
-            return explanation + reinforcement, fix_hint, example
+    # Step 0 → Try to match from explanation DB first
+    if os.path.exists(EXPLANATION_DB):
+        try:
+            with open(EXPLANATION_DB, "r", encoding="utf-8") as f:
+                explanations = json.load(f)
 
-    # Step 2 → Use trained local model if available
+            # Allow partial match (e.g., “name” inside “NameError”)
+            for category, info in explanations.items():
+                if category.lower() in error_message.lower() or category.lower().replace("error", "") in error_message.lower():
+                    log_user_error(username, category)
+                    reinforcement = get_reinforcement_message(username, category)
+
+                    meaning = info.get("meaning", "")
+                    cause = info.get("cause", "")
+                    fixes = info.get("fix", [])
+                    example = info.get("example", "")
+
+                    formatted_explanation = (
+                        f"### 🧠 What it means:\n{meaning}\n\n"
+                        f"### ⚙️ Why it happens:\n{cause}\n\n"
+                        f"### 🛠️ How to fix it:\n"
+                        + "".join([f"- {fix}\n" for fix in fixes])
+                    )
+
+                    return (
+                        formatted_explanation + (f"\n\n{reinforcement}" if reinforcement else ""),
+                        "Here’s a detailed explanation of your error.",
+                        example,
+                    )
+        except Exception as e:
+            print(f"⚠️ Could not load explanation DB: {e}")
+
+    # Step 1 → Try AI model prediction
     if model and vectorizer:
         try:
             X = vectorizer.transform([error_message])
@@ -106,33 +140,35 @@ def explain_error(error_message, username=None):
             log_user_error(username, predicted_category)
             reinforcement = get_reinforcement_message(username, predicted_category)
 
-            explanation = f"🤖 AI detected this might be a **{predicted_category}**."
-            fix_hint = {
-                "IndexError": "Ensure you’re not accessing out-of-range elements in lists or strings.",
-                "KeyError": "Double-check that dictionary keys exist before accessing them.",
-                "AttributeError": "Verify the variable type supports the attribute or method being called.",
-                "LogicError": "Your code logic might not match your intended outcome. Try printing intermediate results."
-            }.get(predicted_category, "Try rechecking your logic or reviewing variable usage.")
-            example = f"Example fix for **{predicted_category}** could involve validating data or conditions before use."
-            return explanation + reinforcement, fix_hint, example
+            explanation = f"🤖 AI predicts this might be a **{predicted_category}**."
+            fix_hint = "💡 Try reviewing this concept in the Concepts section."
+            return (
+                explanation + (f"\n\n{reinforcement}" if reinforcement else ""),
+                fix_hint,
+                None,
+            )
         except Exception as e:
-            return None, f"⚠️ AI prediction failed: {e}", None
+            print(f"⚠️ AI prediction failed: {e}")
 
-    # Step 3 → Fallback to Hugging Face API
+    # Step 2 → Fallback to Hugging Face parallel API
     result = call_huggingface_fallback(error_message)
     if isinstance(result, tuple):
         explanation, fix_hint, example = result
 
-        # Try to extract probable label
+        # Try to extract probable label and log it
         for label in ["SyntaxError", "NameError", "IndexError", "KeyError", "AttributeError", "LogicError"]:
             if label.lower() in explanation.lower():
                 log_user_error(username, label)
                 reinforcement = get_reinforcement_message(username, label)
-                return explanation + reinforcement, fix_hint, example
+                return (
+                    explanation + (f"\n\n{reinforcement}" if reinforcement else ""),
+                    fix_hint,
+                    example,
+                )
         return result
     else:
         return result, None, None
-
+    
 
 # ✅ Load Hugging Face API key
 load_dotenv(dotenv_path=Path(".") / ".env")
@@ -140,14 +176,19 @@ HF_TOKEN = os.getenv("HF_API_TOKEN")
 
 
 # ✅ Hugging Face fallback function
+MODEL_URLS = [
+    "https://api-inference.huggingface.co/models/facebook/bart-large-mnli",
+    "https://api-inference.huggingface.co/models/distilbert-base-uncased-mnli",
+    "https://api-inference.huggingface.co/models/MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+]
+
 def call_huggingface_fallback(error_message):
-    """Send unknown error to Hugging Face zero-shot model and get probable category."""
+    """Send unknown error to multiple Hugging Face zero-shot models in parallel and get probable category."""
     if not HF_TOKEN:
         return "⚠️ API key missing", "Please configure HF_API_TOKEN in .env", None
 
     headers = {"Authorization": f"Bearer {HF_TOKEN}"}
-    API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
-    data = {
+    payload = {
         "inputs": error_message,
         "parameters": {
             "candidate_labels": [
@@ -157,16 +198,27 @@ def call_huggingface_fallback(error_message):
         }
     }
 
-    try:
-        response = requests.post(API_URL, headers=headers, json=data, timeout=8)
-        if response.status_code == 200:
-            result = response.json()
-            best_label = result["labels"][0]
-            confidence = result["scores"][0]
-            explanation = f"The error likely belongs to **{best_label}** category (confidence: {confidence:.2f})."
-            fix_hint = "You can review your code based on this category."
-            return explanation, fix_hint, None
-        else:
-            return f"⚠️ API error {response.status_code}", "Could not classify error.", None
-    except Exception as e:
-        return f"⚠️ Exception during API call: {e}", "Network or API issue", None
+    def request_model(url):
+        try:
+            response = requests.post(url, headers=headers, json=payload, timeout=8)
+            if response.status_code == 200:
+                return url, response.json()
+            return url, None
+        except Exception:
+            return url, None
+
+    # Show loading spinner in Streamlit UI
+    with st.spinner("🤖 Analyzing your error... please wait a few seconds..."):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            futures = {executor.submit(request_model, url): url for url in MODEL_URLS}
+            for future in concurrent.futures.as_completed(futures):
+                url, result = future.result()
+                if result:
+                    best_label = result["labels"][0]
+                    confidence = result["scores"][0]
+                    explanation = f"The error likely belongs to **{best_label}** category (confidence: {confidence:.2f})."
+                    fix_hint = f"This usually occurs when something in your code triggers a **{best_label}**. Review related syntax or logic."
+                    return explanation, fix_hint, None
+
+    # If none succeeded
+    return "⚠️ All models failed to respond.", "Please check your internet connection or try again later.", None

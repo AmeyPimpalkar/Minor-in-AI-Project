@@ -68,6 +68,8 @@ def main():
             st.session_state.logged_in = False
             st.session_state.user = None
             st.sidebar.info("Logged out successfully!")
+        elif choice == "dashboard":
+            dashboard_module.dashboard(st.session_state.user)
 
 
 if __name__ == "__main__":

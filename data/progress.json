@@ -178,5 +178,535 @@
     "timestamp": "2025-10-12T17:15:03.087287",
     "duration_seconds": 4,
     "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "Print(ink)",
+    "timestamp": "2025-10-13T04:25:14.778314",
+    "duration_seconds": 8,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "Print(ink)",
+    "timestamp": "2025-10-13T04:25:18.940364",
+    "duration_seconds": 8,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "Print(ink)",
+    "timestamp": "2025-10-13T04:25:19.748265",
+    "duration_seconds": 8,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "Print(ink)",
+    "timestamp": "2025-10-13T04:25:19.901548",
+    "duration_seconds": 8,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:25:25.869556",
+    "duration_seconds": 3,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:26:05.388067",
+    "duration_seconds": 7,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:29:36.394689",
+    "duration_seconds": 6,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "",
+    "timestamp": "2025-10-13T04:33:09.162018",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:33:28.744991",
+    "duration_seconds": 8,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:33:50.573057",
+    "duration_seconds": 8,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:35:34.644568",
+    "duration_seconds": 5,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:35:52.800680",
+    "duration_seconds": 9,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:42:26.601412",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:44:23.653980",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:44:25.295236",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:44:26.656778",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:45:16.737493",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:49:52.672640",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:49:54.501889",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T04:50:36.872502",
+    "duration_seconds": 11,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:13:42.307613",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:23:32.256151",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:33:14.024540",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:33:21.007192",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:35:18.857366",
+    "duration_seconds": 5,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:40:36.122012",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:41:02.179187",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:41:08.593816",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink",
+    "timestamp": "2025-10-13T15:41:22.322421",
+    "duration_seconds": 1,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:44:21.536948",
+    "duration_seconds": 5,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-13T15:44:27.054048",
+    "duration_seconds": 1,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink",
+    "timestamp": "2025-10-13T15:45:31.572187",
+    "duration_seconds": 2,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "print(i",
+    "timestamp": "2025-10-13T15:48:47.665691",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-13T15:52:06.544390",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-13T15:52:13.125663",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(x)",
+    "timestamp": "2025-10-14T12:33:50.779088",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(x)",
+    "timestamp": "2025-10-14T12:34:39.622266",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(x)",
+    "timestamp": "2025-10-14T12:34:42.099068",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(your)",
+    "timestamp": "2025-10-14T12:45:52.069931",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(your)",
+    "timestamp": "2025-10-14T12:45:57.337799",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(your)",
+    "timestamp": "2025-10-14T12:46:09.876630",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(your)",
+    "timestamp": "2025-10-14T12:46:28.204379",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(your)",
+    "timestamp": "2025-10-14T12:49:57.164005",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(your)",
+    "timestamp": "2025-10-14T12:50:01.757255",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-14T13:14:45.083314",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-14T13:15:15.575228",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-14T13:17:38.959978",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-14T13:19:35.799424",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-14T13:20:17.797236",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-14T13:20:29.743426",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-14T15:59:08.828554",
+    "duration_seconds": 4,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-14T16:00:32.202708",
+    "duration_seconds": 1,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-14T16:01:11.324672",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
   }
 ]
