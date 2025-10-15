@@ -708,5 +708,105 @@
     "timestamp": "2025-10-14T16:01:11.324672",
     "duration_seconds": 0,
     "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "a = [1, 2, 3]\nfor i in a:\n    print(i)",
+    "timestamp": "2025-10-14T16:57:47.071443",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "nums = [10, 20, 30]\nfor i in range(len(nums)):\n    print(nums[i])",
+    "timestamp": "2025-10-14T16:58:25.902170",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "num = [10, 20, 30]\nfor i in num:\n       print(i)\n    ",
+    "timestamp": "2025-10-14T16:59:27.360373",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "for i in range(5):\n    for j in range(3):\n        print(i, j)",
+    "timestamp": "2025-10-14T16:59:52.393805",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "for i in range(100):\n    print(i)\n    print(i+1)\n    print(i+2)\n    print(i+3)",
+    "timestamp": "2025-10-14T17:00:06.226507",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "def calculate(nums):\n    total = 0\n    for i in range(len(nums)):\n        total += nums[i]\n    return total / len(nums)",
+    "timestamp": "2025-10-14T17:00:36.923309",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "x = 5\nprint(x + 2)",
+    "timestamp": "2025-10-14T17:06:06.814423",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "x = 5\nprint(x + 2)",
+    "timestamp": "2025-10-14T17:07:57.535192",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(x + 2)",
+    "timestamp": "2025-10-14T17:08:08.224360",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "def calculate(nums):\n    total = 0\n    for i in range(len(nums)):\n        total += nums[i]\n    return total / len(nums)",
+    "timestamp": "2025-10-14T17:08:48.668779",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
   }
 ]

@@ -6,6 +6,8 @@ import sys
 import time
 from core.error_handler import explain_error, log_user_error, get_reinforcement_message
 from core.progress import log_progress
+from core.code_analyzer import analyze_code_style
+from core.api_helper import explain_with_huggingface  # ✅ for AI-based suggestions
 
 
 # 🧠 Basic dictionary to provide real explanations
@@ -30,7 +32,7 @@ def coding_practice(username):
     passed = 0
     total = 0
     duration = 0
-
+    probable_category = None
     code = st.text_area("Write your Python code here:", height=200)
 
     if st.button("▶️ Run Code"):
@@ -49,7 +51,18 @@ def coding_practice(username):
                 st.code(output, language="text")
             else:
                 st.success("✅ Code ran successfully but no output was printed.")
-                st.write("Variables:", local_vars)
+
+                # 💡 Detect function/class definitions without calls
+                if any(line.strip().startswith(("def ", "class ")) for line in code.splitlines()):
+                    st.info("💡 You defined a function or class but didn’t call it. Try calling it below to test your logic.")
+                else:
+                    st.write("Variables:", local_vars)
+
+            # ✅ Optional: Run style & best-practice analysis
+            ai_feedback = analyze_code_style(code)
+            if ai_feedback:
+                st.markdown("### 💡 Code Improvement Suggestions")
+                st.write(ai_feedback)
 
             passed, total = 1, 1
             log_user_error(username, "SuccessfulExecution")
@@ -81,7 +94,7 @@ def coding_practice(username):
             # Log user’s struggle
             log_user_error(username, probable_category or "UnknownError")
 
-            # 🔗 Dynamic concept linking (fixed navigation)
+            # 🔗 Dynamic concept linking
             if probable_category:
                 if st.button("📚 Review Related Concept"):
                     st.session_state.selected_page = "concepts"
@@ -100,12 +113,10 @@ def coding_practice(username):
             duration = int(time.time() - start_time)
             log_progress(username, "free_practice", passed, total, code, duration)
 
-
-        # Get reinforcement feedback
+        # ✅ Reinforcement feedback
         reinforcement = get_reinforcement_message(username, probable_category)
-
         if reinforcement:
-            st.info(reinforcement["message"])
+            st.info(reinforcement)
             if st.button("📘 Review Now", key=f"review_{probable_category}"):
                 st.session_state.selected_page = "concepts"
                 st.session_state.review_category = probable_category.lower()
