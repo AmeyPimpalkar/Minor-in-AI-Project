@@ -1,12 +1,12 @@
 import streamlit as st
 from core.error_handler import explain_error
 
-st.title("🧠 AI Error Classifier Tester")
+st.title("AI Error Classifier Tester")
 
 st.write("Enter an error message below and see how the AI classifies it!")
 
 # Text area for user input
-user_input = st.text_area("🔍 Paste or type your Python error message here:", height=150)
+user_input = st.text_area("Paste or type your Python error message here:", height=150)
 
 if st.button("Analyze Error"):
     if user_input.strip():

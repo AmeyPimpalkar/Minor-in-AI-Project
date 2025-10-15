@@ -1,4 +1,4 @@
-# core/error_handler.py
+
 import json
 import os
 import pickle
@@ -18,7 +18,7 @@ USER_LOG = "data/user_learning_log.json"
 EXPLANATION_DB = "data/error_explanations.json"
 
 
-# ✅ Log user mistakes and repetitions
+# Log user mistakes and repetitions
 def log_user_error(username, category):
     """Logs user mistakes by category for personalized feedback."""
     if not username or not category:
@@ -42,7 +42,7 @@ def log_user_error(username, category):
         json.dump(data, f, indent=2)
 
 
-# ✅ Reinforcement logic
+# Reinforcement logic
 def get_reinforcement_message(username, category):
     """If user repeats same error multiple times, suggest concept revision."""
     if not username or not os.path.exists(USER_LOG):
@@ -55,7 +55,7 @@ def get_reinforcement_message(username, category):
 
         if count >= 3:
             message = (
-                f"🧠 You've encountered **{category}** errors {count} times. "
+                f" You've encountered **{category}** errors {count} times. "
                 "Consider reviewing this concept in the Learn section."
             )
             return {
@@ -70,7 +70,7 @@ def get_reinforcement_message(username, category):
     return None
 
 
-# ✅ Load known errors safely
+# Load known errors safely
 def load_errors():
     if not os.path.exists(ERROR_DB):
         return []
@@ -82,7 +82,7 @@ def load_errors():
         return []
 
 
-# ✅ Load AI model if available
+# Load AI model if available
 def load_model():
     if not os.path.exists(MODEL_PATH):
         return None, None
@@ -95,7 +95,7 @@ def load_model():
         return None, None
 
 
-# ✅ Explain error with model or fallback
+# Explain error with model or fallback
 def explain_error(error_message, username=None):
     """Explain an error using local explanation DB, ML model, or Hugging Face fallback."""
     model, vectorizer = load_model()
@@ -132,7 +132,7 @@ def explain_error(error_message, username=None):
         except Exception as e:
             print(f"⚠️ Could not load explanation DB: {e}")
 
-    # Step 1 → Try AI model prediction
+    # Try AI model prediction
     if model and vectorizer:
         try:
             X = vectorizer.transform([error_message])
@@ -150,7 +150,7 @@ def explain_error(error_message, username=None):
         except Exception as e:
             print(f"⚠️ AI prediction failed: {e}")
 
-    # Step 2 → Fallback to Hugging Face parallel API
+    # Fallback to Hugging Face parallel API
     result = call_huggingface_fallback(error_message)
     if isinstance(result, tuple):
         explanation, fix_hint, example = result
@@ -170,12 +170,12 @@ def explain_error(error_message, username=None):
         return result, None, None
     
 
-# ✅ Load Hugging Face API key
+# Load Hugging Face API key
 load_dotenv(dotenv_path=Path(".") / ".env")
 HF_TOKEN = os.getenv("HF_API_TOKEN")
 
 
-# ✅ Hugging Face fallback function
+# Hugging Face fallback function
 MODEL_URLS = [
     "https://api-inference.huggingface.co/models/facebook/bart-large-mnli",
     "https://api-inference.huggingface.co/models/distilbert-base-uncased-mnli",

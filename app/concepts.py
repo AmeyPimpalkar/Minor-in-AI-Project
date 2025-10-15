@@ -1,11 +1,11 @@
-# app/concepts.py
+
 import streamlit as st
 import json
 import os
 
 CONCEPTS_DB = "data/concepts.json"
 
-# ✅ Map common Python errors to relevant concepts
+# Common Python errors to relevant concepts
 ERROR_TO_CONCEPT = {
     "nameerror": "variable",
     "indexerror": "list",
@@ -23,7 +23,7 @@ def load_concepts():
 
 
 data = load_concepts()
-# 🧩 Auto-open concept if redirected from coding practice
+# Auto-open concept if redirected from coding practice
 if "review_category" in st.session_state:
     preselect = st.session_state["review_category"]
     if preselect in data:
@@ -37,7 +37,7 @@ else:
 def concepts(username):
     st.header("📘 Learn Programming Concepts")
 
-    # 🔁 Detect redirect from coding practice
+    # Detect redirect from coding practice
     review_target = st.session_state.get("review_category", None)
     if review_target:
         st.success(f"📖 Redirected from Coding Practice — Let’s review **{review_target.capitalize()}**")
@@ -59,12 +59,6 @@ def concepts(username):
         )
         if familiarity:
             st.session_state["familiarity"][language] = familiarity
-
-    # Reset familiarity
-    if st.button("🔄 Reset Familiarity"):
-        if "familiarity" in st.session_state and language in st.session_state["familiarity"]:
-            del st.session_state["familiarity"][language]
-            st.success(f"Reset familiarity for {language}. Please reselect.")
 
     familiarity = st.session_state["familiarity"].get(language)
     if not familiarity:

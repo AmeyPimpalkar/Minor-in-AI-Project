@@ -7,10 +7,10 @@ import time
 from core.error_handler import explain_error, log_user_error, get_reinforcement_message
 from core.progress import log_progress
 from core.code_analyzer import analyze_code_style
-from core.api_helper import explain_with_huggingface  # ✅ for AI-based suggestions
+from core.api_helper import explain_with_huggingface  
 
 
-# 🧠 Basic dictionary to provide real explanations
+# Basic dictionary to provide real explanations
 ERROR_EXPLANATIONS = {
     "NameError": "This happens when you try to use a variable or function that hasn’t been defined yet. "
                  "For example, using `print(x)` before assigning a value to `x`.",
@@ -25,9 +25,9 @@ ERROR_EXPLANATIONS = {
                    "Check for missing colons, parentheses, or indentation."
 }
 
-
+# Coding practice section
 def coding_practice(username):
-    st.subheader("📝 Try Writing Python Code")
+    st.subheader("Try Writing Python Code")
 
     passed = 0
     total = 0
@@ -52,13 +52,13 @@ def coding_practice(username):
             else:
                 st.success("✅ Code ran successfully but no output was printed.")
 
-                # 💡 Detect function/class definitions without calls
+                # Detect function/class definitions without calls
                 if any(line.strip().startswith(("def ", "class ")) for line in code.splitlines()):
                     st.info("💡 You defined a function or class but didn’t call it. Try calling it below to test your logic.")
                 else:
                     st.write("Variables:", local_vars)
 
-            # ✅ Optional: Run style & best-practice analysis
+            # Run style & best-practice analysis
             ai_feedback = analyze_code_style(code)
             if ai_feedback:
                 st.markdown("### 💡 Code Improvement Suggestions")
@@ -74,13 +74,13 @@ def coding_practice(username):
             explanation, fix_hint, example = explain_error(error_message)
             probable_category = None
 
-            # 🔍 Detect probable error category
+            # Detect probable error category
             for cat in ERROR_EXPLANATIONS.keys():
                 if explanation and cat.lower() in explanation.lower():
                     probable_category = cat
                     break
 
-            # 🧠 Add real-world explanation
+            # Add real-world explanation
             if probable_category:
                 st.info(f"📘 **What is {probable_category}?**\n\n{ERROR_EXPLANATIONS[probable_category]}")
                 st.warning(f"💡 Hint: {fix_hint or 'Try reviewing this concept in detail.'}")
@@ -94,7 +94,7 @@ def coding_practice(username):
             # Log user’s struggle
             log_user_error(username, probable_category or "UnknownError")
 
-            # 🔗 Dynamic concept linking
+            # Dynamic concept linking
             if probable_category:
                 if st.button("📚 Review Related Concept"):
                     st.session_state.selected_page = "concepts"
@@ -113,7 +113,7 @@ def coding_practice(username):
             duration = int(time.time() - start_time)
             log_progress(username, "free_practice", passed, total, code, duration)
 
-        # ✅ Reinforcement feedback
+        # Reinforcement feedback
         reinforcement = get_reinforcement_message(username, probable_category)
         if reinforcement:
             st.info(reinforcement)

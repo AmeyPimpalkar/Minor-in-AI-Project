@@ -6,9 +6,6 @@ import os
 USER_DB = "db/users.json"
 
 
-# ---------------------------
-# Utility functions
-# ---------------------------
 def load_users():
     """Load users from JSON file, or return empty dict if file is empty/invalid."""
     if os.path.exists(USER_DB):
@@ -29,9 +26,8 @@ def save_users(users):
         json.dump(users, f, indent=4)
 
 
-# ---------------------------
+
 # Sign Up function
-# ---------------------------
 def signup():
     st.subheader("Create a New Account")
     new_user = st.text_input("Choose a username")
@@ -49,9 +45,8 @@ def signup():
             st.success("✅ Account created successfully! Please log in now.")
 
 
-# ---------------------------
+
 # Login function
-# ---------------------------
 def login():
     st.subheader("Login to Your Account")
     username = st.text_input("Username")

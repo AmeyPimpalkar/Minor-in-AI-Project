@@ -1,4 +1,4 @@
-# app/exercises.py
+
 import streamlit as st
 import json
 import sys
@@ -110,8 +110,8 @@ def exercises(username):
     total = 0
 
     if st.button("Run Solution"):
-        duration = 0  # ✅ initialize to avoid UnboundLocalError
-        start_time = time.time()   # ⏱ Start timing when Run button is clicked
+        duration = 0  # initialise to avoid UnboundLocalError
+        start_time = time.time()   # Start timing when Run button is clicked
         total = len(test_cases) if test_cases else 0
         passed = 0
 
@@ -156,7 +156,7 @@ def exercises(username):
                 explanation, fix_hint, example = explain_error(output) if output else (None, None, None)
                 # note: explain_error expects an error message; here we use it heuristically.
                 if explanation:
-                    st.info(f"📘 Explanation (heuristic): {explanation}")
+                    st.info(f"Explanation (heuristic): {explanation}")
                     st.warning(f"💡 Hint: {fix_hint}")
                     if example:
                         st.code(example, language="python")
@@ -181,7 +181,7 @@ def exercises(username):
             sys.stdout = old_stdout
             builtins.input = old_input
 
-    # ⏱ End timing after all test cases
+    # End timing after all test cases
     end_time = time.time()
     duration = int(end_time - start_time)
 
@@ -191,7 +191,7 @@ def exercises(username):
     else:
         st.info("No test cases available for this problem.")
 
-    # ✅ Save progress
+    # Save progress
     from core.progress import log_progress
     log_progress(
     username=username,

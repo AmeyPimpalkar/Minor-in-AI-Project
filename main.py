@@ -1,20 +1,12 @@
-# main.py
-# Phase 1: Streamlit App Skeleton
 
-import streamlit as st
-
-
-
-# ---------------------------
 # Temporary "database" for demo
 # Later we can replace this with SQLite or JSON file
-# ---------------------------
 users_db = {}  # Stores {username: password}
 
 
-# ---------------------------
-# Function: Language Selection
-# ---------------------------
+# Language Selection 
+# More languages coming in future
+
 def language_selection():
     st.subheader("Select a Programming Language to Learn")
     language = st.selectbox("Choose a language", ["Python (Available)", "Coming soon..."])
@@ -23,11 +15,7 @@ def language_selection():
         st.info("✅ Python selected! More features will load in Phase 2.")
 
 
-# ---------------------------
-# Main App Flow
-# ---------------------------
-
-# main.py
+# Main
 import streamlit as st
 from app import login as login_module
 from app import coding as coding_module

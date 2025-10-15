@@ -1,4 +1,3 @@
-# core/api_helper.py
 import os
 import requests
 from dotenv import load_dotenv
@@ -8,6 +7,7 @@ load_dotenv()
 
 HF_API_TOKEN = os.getenv("HF_API_TOKEN")
 
+# Fatch API
 def explain_with_huggingface(prompt: str):
     """
     Sends a prompt to Hugging Face API and returns the model's response.
@@ -17,8 +17,7 @@ def explain_with_huggingface(prompt: str):
 
     headers = {"Authorization": f"Bearer {HF_API_TOKEN}"}
     
-    # You can change this model name to something better suited for explanation
-    model = "gpt2"
+    model = "Tutor"
     api_url = f"https://api-inference.huggingface.co/models/{model}"
 
     payload = {
@@ -37,4 +36,4 @@ def explain_with_huggingface(prompt: str):
             return "⚠️ Unexpected response format from Hugging Face API."
 
     except requests.exceptions.RequestException as e:
-        return f"❌ Error communicating with Hugging Face API: {str(e)}"
+        return f"Error communicating with Hugging Face API: {str(e)}"

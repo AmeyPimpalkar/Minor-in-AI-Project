@@ -1,4 +1,4 @@
-# app/dashboard.py
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -6,7 +6,7 @@ from core.progress import load_progress
 import os
 import json
 
-
+# Loads user progress
 def load_user_progress(username):
     """Load per-user error trends from the learning log."""
     if not os.path.exists("data/user_learning_log.json"):
@@ -20,9 +20,9 @@ def load_user_progress(username):
 
 
 def dashboard(username):
-    st.header("📊 Your Progress Dashboard")
+    st.header("Your Progress Dashboard")
 
-    # --- Overall coding progress ---
+    # Overall coding progress 
     data = load_progress(username)
     if not data:
         st.info("No progress yet. Try solving some exercises first!")
@@ -37,12 +37,12 @@ def dashboard(username):
         if pd.isna(overall_rate) or overall_rate == float("inf"):
             overall_rate = 0
 
-        st.subheader("🏆 Overall Success Rate")
+        st.subheader("Overall Success Rate")
         st.progress(int(overall_rate))
         st.write(f"Average success rate: **{overall_rate:.2f}%**")
 
-        # --- Performance by Task ---
-        st.subheader("📘 Performance by Task")
+        # Performance by Task 
+        st.subheader("Performance by Task")
         fig1 = px.bar(
             df,
             x="task_id",
@@ -52,8 +52,8 @@ def dashboard(username):
         )
         st.plotly_chart(fig1, use_container_width=True)
 
-        # --- Time Spent Trend ---
-        st.subheader("⏱️ Time Spent on Tasks")
+        # Time Spent Trend 
+        st.subheader("⏱ Time Spent on Tasks")
         df["timestamp"] = pd.to_datetime(df["timestamp"])
         fig2 = px.line(
             df,
@@ -64,18 +64,18 @@ def dashboard(username):
         )
         st.plotly_chart(fig2, use_container_width=True)
 
-        # --- Difficulty Distribution ---
-        st.subheader("🎯 Solved Tasks by Difficulty")
+        # Difficulty Distribution 
+        st.subheader("Solved Tasks by Difficulty")
         fig3 = px.pie(df, names="difficulty", title="Difficulty Distribution")
         st.plotly_chart(fig3, use_container_width=True)
 
-        # --- Recent Attempts Table ---
-        st.subheader("🧾 Recent Attempts")
+        # Recent Attempts Table 
+        st.subheader("Recent Attempts")
         st.dataframe(
             df[["timestamp", "task_id", "passed", "total", "duration_seconds", "difficulty"]].tail(10)
         )
 
-    # --- New Section: Error Trends from user_learning_log.json ---
+    # Error Trends from user_learning_log.json 
     df_error = load_user_progress(username)
     if not df_error.empty:
         st.subheader("🧠 Error Trends (Learning Insights)")

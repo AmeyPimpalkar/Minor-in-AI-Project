@@ -7,7 +7,7 @@ PROGRESS_DB = "data/progress.json"
 TASKS_DB = "data/coding_task.json"
 
 def log_progress(username, task_id, passed, total, code, duration):
-    """Log progress into progress.json with difficulty info."""
+    # Log progress into progress.json with difficulty info.
     record = {
         "username": username,
         "task_id": task_id,

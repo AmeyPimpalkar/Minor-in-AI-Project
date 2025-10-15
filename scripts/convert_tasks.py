@@ -1,4 +1,4 @@
-# scripts/convert_tasks.py
+
 import json, os
 
 SRC = "data/coding_task.json"
@@ -9,7 +9,7 @@ with open(SRC, "r", encoding="utf-8") as f:
 
 new = []
 for task in data:
-    t = dict(task)  # copy
+    t = dict(task)  
     if "test_cases" not in t:
         ex_in = t.pop("example_input", "")
         ex_out = t.pop("expected_output", "")
