@@ -1,21 +1,3 @@
-
-# Temporary "database" for demo
-# Later we can replace this with SQLite or JSON file
-users_db = {}  # Stores {username: password}
-
-
-# Language Selection 
-# More languages coming in future
-
-def language_selection():
-    st.subheader("Select a Programming Language to Learn")
-    language = st.selectbox("Choose a language", ["Python (Available)", "Coming soon..."])
-
-    if language.startswith("Python"):
-        st.info("✅ Python selected! More features will load in Phase 2.")
-
-
-# Main
 import streamlit as st
 from app import login as login_module
 from app import coding as coding_module
@@ -23,6 +5,14 @@ from app import exercises as exercises_module
 from app import dashboard as dashboard_module
 from app import concepts as concepts_module
 
+# Temporary "database" for demo
+users_db = {}  # Stores {username: password}
+
+def language_selection():
+    st.subheader("Select a Programming Language to Learn")
+    language = st.selectbox("Choose a language", ["Python (Available)", "Coming soon..."])
+    if language.startswith("Python"):
+        st.info("✅ Python selected! More features will load in Phase 2.")
 
 def main():
     st.set_page_config(page_title="AI Coding Mentor", layout="wide")
@@ -41,7 +31,7 @@ def main():
         st.sidebar.success(f"👋 Welcome, {st.session_state.user}")
         choice = st.sidebar.radio(
             "Navigation",
-            ["Dashboard", "Concepts","Coding Practice", "Exercises", "Logout"]
+            ["Dashboard", "Concepts", "Coding Practice", "Exercises", "Logout"]
         )
 
         if choice == "Coding Practice":
@@ -56,10 +46,6 @@ def main():
             st.session_state.logged_in = False
             st.session_state.user = None
             st.sidebar.info("Logged out successfully!")
-        elif choice == "dashboard":
-            dashboard_module.dashboard(st.session_state.user)
-
 
 if __name__ == "__main__":
     main()
-

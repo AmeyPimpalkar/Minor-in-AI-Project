@@ -978,5 +978,95 @@
     "timestamp": "2025-10-15T13:39:40.132345",
     "duration_seconds": 0,
     "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "print(\"hello\")",
+    "timestamp": "2025-10-16T11:00:47.375742",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-16T16:24:49.896801",
+    "duration_seconds": 6,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-16T16:25:13.248399",
+    "duration_seconds": 1,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(ink)",
+    "timestamp": "2025-10-16T16:37:53.255685",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i)",
+    "timestamp": "2025-10-16T16:38:00.357005",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i)",
+    "timestamp": "2025-10-16T16:38:05.081664",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i)",
+    "timestamp": "2025-10-16T16:39:36.259872",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-16T16:52:07.491209",
+    "duration_seconds": 6,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i",
+    "timestamp": "2025-10-16T16:52:14.932232",
+    "duration_seconds": 2,
+    "difficulty": "Unknown"
   }
 ]
