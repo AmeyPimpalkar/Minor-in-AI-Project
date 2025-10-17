@@ -1068,5 +1068,25 @@
     "timestamp": "2025-10-16T16:52:14.932232",
     "duration_seconds": 2,
     "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "I = 2\nfor j in range(I):\nprint(j)",
+    "timestamp": "2025-10-16T17:04:32.376527",
+    "duration_seconds": 7,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 1,
+    "code": "print(i)",
+    "timestamp": "2025-10-17T06:48:54.016566",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
   }
 ]
