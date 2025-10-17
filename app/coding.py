@@ -27,6 +27,23 @@ ERROR_EXPLANATIONS = {
 }
 
 
+# Helper: call API safely and store result in session_state
+def simplify_error_with_api(error_message):
+    try:
+        st.session_state["ai_error_explanation"] = explain_with_huggingface(
+            f"Explain this Python error in very simple terms: {error_message}"
+        )
+    except Exception as e:
+        st.session_state["ai_error_explanation"] = f"⚠️ API Error: {e}"
+
+def simplify_concept_with_api(concept_key):
+    try:
+        st.session_state["ai_concept_explanation"] = explain_with_huggingface(
+            f"Explain this Python concept '{concept_key}' in a very simple beginner way with short examples."
+        )
+    except Exception as e:
+        st.session_state["ai_concept_explanation"] = f"⚠️ API Error: {e}"
+
 # Load revise data
 def load_revise_data():
     path = "data/revise_concepts.json"
@@ -45,7 +62,13 @@ def increment_error_count(category):
 
 def coding_practice(username):
     st.subheader("🧑‍💻 Try Writing Python Code")
-
+    st.write("✅ Streamlit running. API test below:")
+    if st.button("Test HuggingFace API"):
+        try:
+            response = explain_with_huggingface("Explain Python NameError simply.")
+            st.success(response)
+        except Exception as e:
+            st.error(f"API Error: {e}")
     revise_data = load_revise_data()
 
     passed = 0
@@ -55,6 +78,8 @@ def coding_practice(username):
     code = st.text_area("Write your Python code here:", height=200)
 
     if st.button("▶️ Run Code"):
+        st.session_state.pop("ai_error_explanation", None)
+        st.session_state.pop("ai_concept_explanation", None)
         start_time = time.time()
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
@@ -108,12 +133,13 @@ def coding_practice(username):
                 st.warning(f"💡 Hint: {fix_hint or 'Try reviewing your logic or syntax.'}")
 
             # First simplify button (for error)
-            if st.button("🤖 Simplify This Error"):
+            if st.button("🤖 Simplify This Error", key="simplify_error_btn"):
                 with st.spinner("Simplifying the error..."):
-                    ai_explanation = explain_with_huggingface(
-                        f"Explain this Python error in very simple terms: {error_message}"
-                    )
-                    st.info(ai_explanation)
+                    simplify_error_with_api(error_message)
+
+            # After the button, show the stored result if it exists
+            if "ai_error_explanation" in st.session_state:
+                st.info(st.session_state["ai_error_explanation"])
 
             if example:
                 st.code(example, language="python")
@@ -141,12 +167,13 @@ def coding_practice(username):
                             st.info(f"🌱 Analogy: {concept['analogy']}")
 
                         # Second simplify button (for concept)
-                        if st.button("🤖 Fetch Simpler Explanation"):
+                        if st.button("🤖 Fetch Simpler Explanation", key=f"simplify_concept_{probable_category}"):
                             with st.spinner("Rephrasing concept in simpler language..."):
-                                ai_response = explain_with_huggingface(
-                                    f"Explain this Python concept '{concept_key}' for beginners in a different simple way with short examples."
-                                )
-                                st.info(ai_response)
+                                simplify_concept_with_api(concept_key)
+
+                        # Show stored result if it exists
+                        if "ai_concept_explanation" in st.session_state:
+                            st.info(st.session_state["ai_concept_explanation"])
                     else:
                         st.warning("Concept details not found in revise_concepts.json")
 
