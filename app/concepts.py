@@ -8,12 +8,16 @@ REVISE_DB = "data/revise_concepts.json"
 
 # Map common Python errors to key concepts
 ERROR_TO_CONCEPT = {
-    "nameerror": "variable",
-    "indexerror": "list",
-    "keyerror": "dictionary",
-    "attributeerror": "function",
-    "logicerror": "loop",
-    "syntaxerror": "syntax",
+    "NameError": "variable", 
+    "IndexError": "list",
+    "KeyError": "dictionary",
+    "AttributeError": "function", 
+    "LogicError": "loop",
+    "SyntaxError": "syntax",
+    "TypeError": "variable",
+    "ValueError": "variable",
+    "IndentationError": "syntax",
+    "ModuleNotFoundError": "syntax"
 }
 
 

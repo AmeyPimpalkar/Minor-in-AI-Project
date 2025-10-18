@@ -7,7 +7,7 @@
   "list": {
     "definition": "A list is a single container that holds an ordered collection of many items, which can be numbers, words, or even other lists.",
     "example": "A list of favorite fruits looks like this: `fruits = ['apple', 'banana', 'cherry']`",
-    "analogy": "It's like your grocery shopping list—items are lined up one after the other, and the order matters."
+    "analogy": "It's like your grocery shopping list\u2014items are lined up one after the other, and the order matters."
   },
   "dictionary": {
     "definition": "A dictionary stores information as pairs, where each item has a unique 'key' (like a name) and a corresponding 'value' (the actual data).",
@@ -17,12 +17,12 @@
   "function": {
     "definition": "A function is a reusable block of code that performs a specific, repeatable task whenever you ask it to, saving you from writing the same code over and over.",
     "example": "You define a function to say 'Hello' like this: `def say_hello():\n  print('Hello!')`",
-    "analogy": "It's like a blender—you put in ingredients, press the button, and it reliably makes a smoothie every time."
+    "analogy": "It's like a blender\u2014you put in ingredients, press the button, and it reliably makes a smoothie every time."
   },
   "loop": {
     "definition": "A loop is a way to make the computer repeat a set of instructions many times without you having to type them out repeatedly.",
     "example": "To print numbers 1 through 3, you can use a 'for' loop: `for i in range(1, 4):\n  print(i)`",
-    "analogy": "This is like doing your laundry—the washing machine goes through the same wash, rinse, and spin cycle repeatedly."
+    "analogy": "This is like doing your laundry\u2014the washing machine goes through the same wash, rinse, and spin cycle repeatedly."
   },
   "syntax": {
     "definition": "Syntax is the specific set of rules that defines how you must write Python code, including punctuation, spacing, and keywords, so the computer can understand it.",
@@ -32,6 +32,10 @@
   "general": {
     "definition": "Programming is simply giving a computer a precise list of instructions to solve a problem or accomplish a task, step by step.",
     "example": "A simple program to add two numbers is: `a = 5\nb = 3\nsum = a + b\nprint(sum)`",
-    "analogy": "Overall, programming is like writing a recipe—a detailed, ordered sequence of steps to create a final dish."
+    "analogy": "Overall, programming is like writing a recipe\u2014a detailed, ordered sequence of steps to create a final dish."
+  },
+  "last_review": {
+    "category": "variable",
+    "timestamp": 1760804685.693799
   }
 }
