@@ -122,7 +122,7 @@ def coding_practice(username):
         except Exception as e:
             error_message = str(e)
             st.session_state['error_message'] = error_message
-            explanation, fix_hint, example = explain_error(error_message)
+            explanation, fix_hint, example, predicted_category_from_ai = explain_error(error_message, username)
             st.session_state['fix_hint'] = fix_hint
             st.session_state['example'] = example
             
