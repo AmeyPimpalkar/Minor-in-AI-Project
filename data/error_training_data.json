@@ -36,6 +36,30 @@
     "category": "IndexError"
   },
   {
+    "error_message": "Accessing element at len(my_list).",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "Tuple index out of range error occurred.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "Got IndexError when slicing string.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "File \"<string>\", line 1, in <module>\nIndexError: list assignment index out of range",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "Trying to pop from an empty list.",
+    "category": "IndexError"
+  },
+  {
+    "error_message": "The index -5 is out of bounds for a list of size 3.",
+    "category": "IndexError"
+  },
+  {
     "error_message": "KeyError: 'address'",
     "category": "KeyError"
   },
@@ -76,6 +100,30 @@
     "category": "KeyError"
   },
   {
+    "error_message": "KeyError: 0 (tried accessing dict with integer key that's not present)",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "Key 'Name' not found, maybe you meant 'name'?",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "Accessing nested dictionary failed with KeyError.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "Key not found in dictionary during loop.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "Using dict.pop('missing_key') raised a KeyError.",
+    "category": "KeyError"
+  },
+  {
+    "error_message": "KeyError when updating a dictionary value with a non-existent key.",
+    "category": "KeyError"
+  },
+  {
     "error_message": "AttributeError: 'int' object has no attribute 'append'",
     "category": "AttributeError"
   },
@@ -113,6 +161,26 @@
   },
   {
     "error_message": "I tried to use a dictionary method on a list.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "AttributeError: 'str' object has no attribute 'push'",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "Calling '.keys()' on a list object.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "'tuple' object has no attribute 'remove'",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "Tried accessing attribute 'value' on an object where it doesn't exist.",
+    "category": "AttributeError"
+  },
+  {
+    "error_message": "File \"<stdin>\", line 1, in <module>\nAttributeError: 'float' object has no attribute 'split'",
     "category": "AttributeError"
   },
   {
@@ -162,5 +230,301 @@
   {
     "error_message": "I'm calculating the area of a rectangle but using width * width instead of width * height.",
     "category": "LogicError"
+  },
+  {
+    "error_message": "The comparison logic is flipped, using '>' instead of '<'.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "My counter variable isn't updating correctly inside the while loop.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The program outputs the right values but in the wrong order.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "Infinite loop detected because the termination condition is never met.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "The result is off because of integer division instead of float division.",
+    "category": "LogicError"
+  },
+  {
+    "error_message": "SyntaxError: invalid syntax",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "I missed a colon at the end of my 'if' statement.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "SyntaxError: EOL while scanning string literal (forgot closing quote)",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Mismatched parentheses or brackets.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Using '=' instead of '==' in a conditional check.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "SyntaxError: invalid character in identifier (e.g., using a hyphen in a variable name)",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Forgot to put quotes around a string.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "SyntaxError: unexpected EOF while parsing (forgot closing parenthesis/bracket)",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Using a reserved keyword like 'class' or 'def' as a variable name.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Missing comma between items in a list or function call.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "File \"<stdin>\", line 1\n    if x > 5 print(\"Yes\")\n             ^\nSyntaxError: invalid syntax",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Invalid assignment target.",
+    "category": "SyntaxError"
+  },
+  {
+    "error_message": "Syntax error due to incorrect function definition syntax.",
+    "category": "SyntaxError"
+  },
+    {
+    "error_message": "IndentationError: expected an indented block",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "My code block after 'for' loop is not indented.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "IndentationError: unindent does not match any outer indentation level",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "Mixed spaces and tabs for indentation.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "File \"test.py\", line 4\n    print(x)\n    ^\nIndentationError: unexpected indent",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "The lines inside my function are not indented correctly.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "Code after 'else:' needs to be indented.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "Indentation problem in nested loops.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "Unexpected indentation caused an error.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "IndentationError: unexpected unindent",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "Python requires consistent indentation.",
+    "category": "IndentationError"
+  },
+  {
+    "error_message": "NameError: name 'my_variable' is not defined",
+    "category": "NameError"
+  },
+  {
+    "error_message": "I used a variable before assigning a value to it.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Typo in variable name causing NameError.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Traceback (most recent call last):\n  File \"script.py\", line 2, in <module>\n    print(mesage)\nNameError: name 'mesage' is not defined. Did you mean: 'message'?",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Trying to call a function that wasn't imported or defined.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Variable scope issue, name defined in function not accessible outside.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Name 'true' is not defined, did you mean 'True'?",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Referencing a class name with incorrect capitalization.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Forgot to import a module before using its functions.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Name 'pritn' is not defined.",
+    "category": "NameError"
+  },
+  {
+    "error_message": "Variable was used in an expression before assignment.",
+    "category": "NameError"
+  },
+    {
+    "error_message": "TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "Tried to add a number and a string together.",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "TypeError: 'list' object is not callable",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "Using parentheses '()' instead of square brackets '[]' to access list element.",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "TypeError: len() takes exactly one argument (0 given)",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "Forgot to pass an argument to a function like len().",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "File \"main.py\", line 5, in <module>\n    result = \"Age: \" + age\nTypeError: can only concatenate str (not \"int\") to str",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "Function expected an integer but received a string.",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "TypeError: 'NoneType' object is not iterable",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "Tried to loop over a variable that was None.",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "Comparing incompatible types, like string and integer.",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "TypeError: must be str, not int",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "TypeError: object of type 'int' has no len()",
+    "category": "TypeError"
+  },
+  {
+    "error_message": "ValueError: invalid literal for int() with base 10: 'abc'",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "Tried converting text that isn't a valid number into an integer.",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "ValueError: math domain error (e.g., sqrt of negative number)",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "ValueError: too many values to unpack (expected 2)",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "Assignment failed because number of variables doesn't match number of items.",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "File \"convert.py\", line 3, in <module>\n    num = int(input(\"Enter number: \"))\nValueError: invalid literal for int() with base 10: 'hello'",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "ValueError: not enough values to unpack (expected 3, got 2)",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "Using list.remove(x) when x is not in the list.",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "ValueError: empty sequence",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "Calling max() or min() on an empty list.",
+    "category": "ValueError"
+  },
+  {
+    "error_message": "Invalid value passed to a function argument.",
+    "category": "ValueError"
+  },
+    {
+    "error_message": "ModuleNotFoundError: No module named 'requests'",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "I forgot to install a library before importing it.",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "ImportError: cannot import name 'specific_function' from 'my_module'",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Typo in the module name during import.",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Traceback (most recent call last):\n  File \"app.py\", line 1, in <module>\n    import pandas as pd\nModuleNotFoundError: No module named 'pandas'",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Trying to import a local file that is not in the Python path or same directory.",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Module 'numpy' not found. Need to pip install.",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Circular import dependency causing ModuleNotFoundError.",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Virtual environment not activated, so installed modules aren't found.",
+    "category": "ModuleNotFoundError"
+  },
+  {
+    "error_message": "Importing a submodule incorrectly.",
+    "category": "ModuleNotFoundError"
   }
 ]

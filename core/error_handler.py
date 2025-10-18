@@ -84,22 +84,36 @@ def load_errors():
 
 
 # Load AI model if available
+# Load AI model if available
 def load_model():
     if not os.path.exists(MODEL_PATH):
-        return None, None
+        print(f"⚠️ Model file not found at: {MODEL_PATH}")
+        return None # Return None if file doesn't exist
+
     try:
         with open(MODEL_PATH, "rb") as f:
-            model_data = pickle.load(f)
-        return model_data.get("model"), model_data.get("vectorizer")
+            # Load the entire pipeline object directly
+            pipeline_model = pickle.load(f)
+        # Check if it's a scikit-learn pipeline (optional but good practice)
+        if hasattr(pipeline_model, 'predict') and hasattr(pipeline_model, 'transform'):
+             print("✅ Model pipeline loaded successfully.")
+             return pipeline_model # Return the loaded pipeline
+        else:
+             print(f"⚠️ Loaded object from {MODEL_PATH} is not a valid scikit-learn pipeline.")
+             return None
     except Exception as e:
-        print(f"⚠️ Model loading failed: {e}")
-        return None, None
+        print(f"⚠️ Model loading failed from {MODEL_PATH}: {e}")
+        # Print traceback for more details during debugging
+        # import traceback
+        # print(traceback.format_exc())
+        return None # Return None on error
 
 
 # Explain error with model or fallback
 def explain_error(error_message, username=None):
     """Explain an error using local explanation DB, ML model, or Hugging Face fallback."""
-    model, vectorizer = load_model()
+    # model, vectorizer = load_model()
+    pipeline_model = load_model()
 
     # Step 0 → Try to match from explanation DB first
     if os.path.exists(EXPLANATION_DB):
@@ -133,23 +147,30 @@ def explain_error(error_message, username=None):
         except Exception as e:
             print(f"⚠️ Could not load explanation DB: {e}")
 
-    # Try AI model prediction
-    if model and vectorizer:
+
+# Try AI model prediction
+    if pipeline_model: # Check if the model loaded
         try:
-            X = vectorizer.transform([error_message])
-            predicted_category = model.predict(X)[0]
+            # Use the loaded pipeline directly for prediction
+            predicted_category = pipeline_model.predict([error_message])[0]
+
             log_user_error(username, predicted_category)
             reinforcement = get_reinforcement_message(username, predicted_category)
 
             explanation = f"🤖 AI predicts this might be a **{predicted_category}**."
             fix_hint = "💡 Try reviewing this concept in the Concepts section."
-            return (
+            return (  # <<< This return is correctly indented inside the 'try'
                 explanation + (f"\n\n{reinforcement}" if reinforcement else ""),
                 fix_hint,
                 None,
             )
         except Exception as e:
             print(f"⚠️ AI prediction failed: {e}")
+            # Ensure THIS return is indented correctly under the 'except'
+            return "⚠️ AI prediction failed.", f"Details: {str(e)}", None # <<< FIX INDENTATION HERE (Line 163 or near it)
+
+    # Fallback to Hugging Face parallel API (or other fallbacks)
+    # ... (rest of the function) ...
 
     # Fallback to Hugging Face parallel API
     result = call_huggingface_fallback(error_message)
