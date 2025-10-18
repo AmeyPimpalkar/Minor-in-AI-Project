@@ -1,69 +1,60 @@
-# core/api_helper.py
 import os
 import requests
-import time
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Load .env
-load_dotenv(dotenv_path=Path(".") / ".env")
-HF_TOKEN = os.getenv("HF_API_TOKEN")
+# --- IMPORTANT ---
+# This line loads the .env file. For Streamlit, the .env file MUST
+# be in the same root folder as your main app.py file.
+load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-HEADERS = {"Authorization": f"Bearer {HF_TOKEN}"} if HF_TOKEN else {}
+# --- DEBUGGING ---
+# Add this print statement to your main streamlit app.py file to verify the key is loaded:
+# import os
+# from dotenv import load_dotenv
+# load_dotenv()
+# print(f"API Key Loaded: {os.getenv('GEMINI_API_KEY') is not None}")
+# -----------------
 
-# ✅ Stable text generation models currently supported on HF inference API
-EXPLAIN_MODELS = [
-    "meta-llama/Llama-3.2-1B-Instruct",
-    "mistralai/Mistral-7B-Instruct-v0.2",
-    "HuggingFaceH4/zephyr-7b-beta"
-]
+def explain_with_gemini(prompt):
+    """Send a prompt to Gemini and return the response."""
+    if not GEMINI_API_KEY:
+        return "⚠️ Gemini API key missing or not loaded. Check your .env file."
 
-def _post_with_retries(url, payload, headers=None, timeout=15, retries=2, backoff=1.5):
-    headers = headers or HEADERS
-    for attempt in range(retries + 1):
-        try:
-            r = requests.post(url, json=payload, headers=headers, timeout=timeout)
-            if r.status_code == 200:
-                return r
-            time.sleep(backoff ** attempt)
-        except Exception as e:
-            if attempt == retries:
-                raise
-            time.sleep(backoff ** attempt)
-    return None
+    # Using the single, fast model that worked in Colab
+    model_name = "gemini-2.5-flash"
+    
+    # Constructing the URL exactly like the working Colab script
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
 
-def explain_with_huggingface(prompt, max_new_tokens=150):
-    """Generate a simple explanation for the given text."""
-    if not HF_TOKEN:
-        return "⚠️ HF token missing. Add HF_API_TOKEN in your .env file."
+    headers = {"Content-Type": "application/json"}
+    params = {"key": GEMINI_API_KEY}
+    
+    # Simplified payload to match the working Colab script
+    data = {
+        "contents": [{"parts": [{"text": prompt}]}]
+    }
 
-    for model in EXPLAIN_MODELS:
-        url = f"https://api-inference.huggingface.co/models/{model}"
-        payload = {
-            "inputs": prompt,
-            "parameters": {"max_new_tokens": max_new_tokens},
-            "options": {"wait_for_model": True}
-        }
-
-        try:
-            print(f"🔗 Testing model: {model}")  # Optional for debugging
-            r = _post_with_retries(url, payload)
-            if not r:
-                continue
-
-            if r.status_code == 200:
-                j = r.json()
-                if isinstance(j, list) and len(j) and "generated_text" in j[0]:
-                    return j[0]["generated_text"].strip()
-                elif isinstance(j, dict) and "generated_text" in j:
-                    return j["generated_text"].strip()
-                else:
-                    return str(j)
-            elif r.status_code == 503:
-                return "⚠️ Model is loading on Hugging Face. Please retry in a few seconds."
+    try:
+        print(f"🔗 Sending request to Gemini model: {model_name}...")
+        response = requests.post(url, headers=headers, params=params, json=data, timeout=30)
+        
+        if response.status_code == 200:
+            data = response.json()
+            # Safely extract the text from the response
+            text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text")
+            if text:
+                print("✅ Success! Received response from Gemini.")
+                return text.strip()
             else:
-                continue
-        except Exception as e:
-            continue
+                return "⚠️ Gemini returned an empty response."
+        else:
+            # Provide a detailed error from the server
+            return f"⚠️ Gemini API Error: {response.status_code}\n{response.text}"
 
-    return "⚠️ Could not get a response from external models. Try again later."
+    except requests.exceptions.ReadTimeout:
+        return "⚠️ Gemini API Error: The request timed out. The server is taking too long."
+    except Exception as e:
+        return f"⚠️ An unexpected error occurred: {e}"
+

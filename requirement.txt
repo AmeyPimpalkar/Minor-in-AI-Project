@@ -1,0 +1,16 @@
+streamlit
+scikit-learn
+pandas
+plotly
+requests
+python-dotenv
+google-genai
+
+
+# requirements.txt
+
+streamlit
+pandas
+scikit-learn
+python-dotenv
+google-generativeai

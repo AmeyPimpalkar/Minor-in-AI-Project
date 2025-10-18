@@ -3,13 +3,14 @@ import json
 import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
-from core.api_helper import explain_with_huggingface
+from core.api_helper import explain_with_gemini
 import requests
 from dotenv import load_dotenv
 from pathlib import Path
 import requests
 import concurrent.futures
 import streamlit as st
+
 
 # File paths
 ERROR_DB = "data/errors.json"
@@ -222,3 +223,7 @@ def call_huggingface_fallback(error_message):
 
     # If none succeeded
     return "⚠️ All models failed to respond.", "Please check your internet connection or try again later.", None
+
+
+
+

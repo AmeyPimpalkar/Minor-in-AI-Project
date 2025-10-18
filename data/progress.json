@@ -1348,5 +1348,25 @@
     "timestamp": "2025-10-17T10:56:57.795655",
     "duration_seconds": 4,
     "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 0,
+    "total": 0,
+    "code": "",
+    "timestamp": "2025-10-18T12:17:02.962167",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "Print(ink)",
+    "timestamp": "2025-10-18T12:17:12.391026",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
   }
 ]
