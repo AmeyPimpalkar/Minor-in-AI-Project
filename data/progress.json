@@ -1498,5 +1498,35 @@
     "timestamp": "2025-10-18T13:28:48.591439",
     "duration_seconds": 0,
     "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 1,
+    "total": 1,
+    "code": "num = 12\nfor j in range(num):\n       print(j)\n",
+    "timestamp": "2025-10-18T13:34:45.909467",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "easy_string_reversal",
+    "passed": 3,
+    "total": 3,
+    "code": "word = input()\n\n# Create an empty string to build the reversed word\nreversed_word = \"\"\n\n# Loop through the word's indices in reverse\n# This style triggers the \"range(len())\" suggestion\nfor i in range(len(word) - 1, -1, -1):\n  reversed_word += word[i]\n\n# Using multiple print statements can trigger another suggestion\nprint(reversed_word)\nprint()\nprint()\nprint()",
+    "timestamp": "2025-10-18T13:43:52.487472",
+    "duration_seconds": 0,
+    "difficulty": "Easy"
+  },
+  {
+    "username": "Amey P.",
+    "task_id": "free_practice",
+    "passed": 0,
+    "total": 0,
+    "code": "print(ink)",
+    "timestamp": "2025-10-18T13:44:34.708847",
+    "duration_seconds": 0,
+    "difficulty": "Unknown"
   }
 ]
