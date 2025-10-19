@@ -2,9 +2,8 @@ import json
 import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
-# Import the Gemini helper function (ensure this path is correct)
 from core.api_helper import explain_with_gemini
-import streamlit as st # Keep streamlit for st.spinner potentially inside explain_with_gemini
+import streamlit as st 
 
 # File paths
 ERROR_DB = "data/errors.json"
@@ -15,7 +14,7 @@ EXPLANATION_DB = "data/error_explanations.json"
 
 # Log user mistakes and repetitions
 def log_user_error(username, category):
-    """Logs user mistakes by category for personalized feedback."""
+    #Logs user mistakes by category for personalised feedback.
     if not username or not category:
         return
 
@@ -46,8 +45,8 @@ def log_user_error(username, category):
 
 
 # Reinforcement logic
+# If user repeats same error multiple times, suggest concept revision.
 def get_reinforcement_message(username, category):
-    """If user repeats same error multiple times, suggest concept revision."""
     if not username or not category or not os.path.exists(USER_LOG):
         return None
 
@@ -61,15 +60,8 @@ def get_reinforcement_message(username, category):
                 f" You've encountered **{category}** errors {count} times. "
                 "Consider reviewing this concept in the Learn section."
             )
-            # Ensure the returned dict matches expected structure if needed elsewhere
-            return message # Returning only message string might be simpler if category/count aren't used by caller
-            # Or return dict if needed:
-            # return {
-            #     "message": message,
-            #     "category": category, # Pass category back if needed
-            #     "count": count,       # Pass count back if needed
-            #     "action": "review_concept"
-            # }
+            return message 
+            
     except (json.JSONDecodeError, FileNotFoundError, Exception) as e:
         print(f"⚠️ Error reading or processing {USER_LOG}: {e}")
         pass
@@ -77,7 +69,7 @@ def get_reinforcement_message(username, category):
     return None
 
 
-# Load known errors safely (No changes needed here)
+# Load known errors safely 
 def load_errors():
     if not os.path.exists(ERROR_DB):
         return []
@@ -89,7 +81,7 @@ def load_errors():
         return []
 
 
-# Load AI model if available (Uses the corrected version from previous step)
+# Load AI model if available 
 def load_model():
     if not os.path.exists(MODEL_PATH):
         print(f"⚠️ Model file not found at: {MODEL_PATH}")
@@ -99,7 +91,7 @@ def load_model():
         with open(MODEL_PATH, "rb") as f:
             # Load the entire pipeline object directly
             pipeline_model = pickle.load(f)
-        # Check if it's a scikit-learn pipeline (optional but good practice)
+        # Check if it's a scikit-learn pipeline 
         if hasattr(pipeline_model, 'predict') and hasattr(pipeline_model, 'transform'):
              print("✅ Model pipeline loaded successfully.")
              return pipeline_model # Return the loaded pipeline
@@ -112,19 +104,16 @@ def load_model():
 
 
 # Explain error with model or fallback
+# Explain an error using local explanation DB, ML model, or Gemini fallback.
 def explain_error(error_message, username=None):
-    """Explain an error using local explanation DB, ML model, or Gemini fallback."""
-    pipeline_model = load_model() # Load the single pipeline object or None
+    pipeline_model = load_model() 
 
-    # Step 0 → Try to match from explanation DB first
     if os.path.exists(EXPLANATION_DB):
         try:
             with open(EXPLANATION_DB, "r", encoding="utf-8") as f:
                 explanations = json.load(f)
 
-            # Allow partial match (e.g., “name” inside “NameError”)
             for category, info in explanations.items():
-                # Make matching case-insensitive and handle 'error' suffix
                 error_lower = error_message.lower()
                 cat_lower = category.lower()
                 cat_no_error_lower = cat_lower.replace("error", "")
@@ -144,7 +133,6 @@ def explain_error(error_message, username=None):
                         f"### 🛠️ How to fix it:\n"
                         + "".join([f"- {fix}\n" for fix in fixes])
                     )
-                    # Return 4 values: explanation, hint, example, category
                     return (
                         formatted_explanation + (f"\n\n{reinforcement}" if reinforcement else ""),
                         "Here’s a detailed explanation of your error.",
@@ -154,58 +142,47 @@ def explain_error(error_message, username=None):
         except Exception as e:
             print(f"⚠️ Could not load or process explanation DB: {e}")
 
-    # Step 1 → Try AI model prediction
+
     if pipeline_model: # Check if the model loaded
         try:
-            # Use the loaded pipeline directly for prediction
             predicted_category = pipeline_model.predict([error_message])[0]
 
             log_user_error(username, predicted_category)
             reinforcement = get_reinforcement_message(username, predicted_category)
 
-            explanation = f"🤖 AI predicts this might be a **{predicted_category}**."
+            explanation = f"AI predicts this might be a **{predicted_category}**."
             fix_hint = "💡 Try reviewing this concept in the Concepts section, or check the explanation database."
 
-            # Return 4 values: explanation, hint, example (None), category
             return (
                 explanation + (f"\n\n{reinforcement}" if reinforcement else ""),
                 fix_hint,
-                None, # No specific code example from the model
-                predicted_category # Return the predicted category
+                None, 
+                predicted_category 
             )
         except Exception as e:
             print(f"⚠️ AI prediction failed: {e}")
-            # Fall through to Gemini if prediction fails
 
-    # Step 2 -> Fallback to Gemini API if DB match and AI prediction failed or skipped
+
     print("Falling back to Gemini API...")
     try:
-        # Construct a simple prompt for Gemini
         gemini_prompt = (
             f"Explain this Python error in simple terms for a beginner:\n\n"
             f"Error message: `{error_message}`\n\n"
             f"Focus on what likely caused it and how to fix it."
         )
-        # Use st.spinner for user feedback during API call
-        with st.spinner("🤖 Asking Gemini for a simpler explanation..."):
+        with st.spinner("Asking Gemini for a simpler explanation..."):
              gemini_explanation = explain_with_gemini(gemini_prompt)
 
-        # Basic check if Gemini returned an error message itself
         if gemini_explanation.startswith("⚠️"):
              hint = "Could not get explanation from Gemini."
-             category = None # Cannot determine category from Gemini error
+             category = None 
         else:
              hint = "Explanation provided by Gemini AI."
-             category = None # Cannot reliably determine category from Gemini text
+             category = None 
 
-        # Return 4 values: explanation, hint, example (None), category (None)
         return gemini_explanation, hint, None, category
 
     except Exception as e:
         print(f"⚠️ Gemini fallback failed: {e}")
-        # Final fallback if Gemini also fails
         return "⚠️ Could not get an explanation.", f"Error during Gemini fallback: {str(e)}", None, None
 
-# --- REMOVED HUGGING FACE CODE ---
-# (No need for HF_TOKEN, MODEL_URLS, call_huggingface_fallback function anymore)
-# --- END REMOVED HUGGING FACE CODE ---

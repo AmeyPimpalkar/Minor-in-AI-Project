@@ -5,14 +5,13 @@ import sys
 import time
 import json
 import os
-# Import necessary functions AND the mapping dictionary
+
 from core.error_handler import explain_error, log_user_error, get_reinforcement_message
 from core.progress import log_progress
 from core.code_analyzer import analyze_code_style
 from core.api_helper import explain_with_gemini
-from app.concepts import ERROR_TO_CONCEPT # <<< IMPORT REMAINS
+from app.concepts import ERROR_TO_CONCEPT 
 
-# Basic dictionary (can be removed if only used for guessing category before)
 ERROR_EXPLANATIONS = {
     "NameError": "This happens when you try to use a variable or function that hasn’t been defined yet...",
     "IndexError": "You’re trying to access an index that doesn’t exist in a list or string...",
@@ -22,7 +21,7 @@ ERROR_EXPLANATIONS = {
     "SyntaxError": "Python can’t understand your code due to incorrect syntax..."
 }
 
-# --- Track repeated user mistakes --- (Keep this)
+# Track repeated user mistakes.
 def increment_error_count(category):
     if "error_counts" not in st.session_state:
         st.session_state["error_counts"] = {}
@@ -30,11 +29,10 @@ def increment_error_count(category):
     st.session_state["error_counts"][category_lower] = st.session_state["error_counts"].get(category_lower, 0) + 1
 
 
-# --- Safe Gemini helper --- (Keep these)
+# Fetch API.
 def simplify_error_with_api(user_code, error_message):
     if 'ai_explanations' not in st.session_state:
         st.session_state['ai_explanations'] = []
-    # ... (rest of the function remains the same) ...
     previous_explanations = "\n---\n".join(st.session_state['ai_explanations'])
     prompt = ""
 
@@ -69,7 +67,7 @@ def simplify_concept_with_api(concept_key):
         st.session_state["ai_concept_explanation"] = f"⚠️ API Error: {e}"
 
 
-# --- Main Function ---
+# Main Function Section. (IMP)
 def coding_practice(username):
     st.subheader("🧑‍💻 Try Writing Python Code")
 
@@ -114,10 +112,10 @@ def coding_practice(username):
             st.session_state['example'] = example
             st.session_state['probable_category'] = predicted_category_from_ai
 
-            # Increment count and log (logging might already be in explain_error)
+            # Increment count and log 
             if predicted_category_from_ai:
                 increment_error_count(predicted_category_from_ai)
-                # Ensure log_user_error is called (it is inside explain_error now)
+                # Ensure log_user_error is called 
             else:
                 log_user_error(username, "UnknownError")
 
@@ -126,7 +124,7 @@ def coding_practice(username):
             duration = int(time.time() - start_time)
             log_progress(username, "free_practice", passed, total, st.session_state['user_code'], duration)
 
-    # --- DISPLAY LOGIC (runs on every interaction) ---
+# Display Logic 
 
     # Display success output
     if "execution_output" in st.session_state:
@@ -153,16 +151,14 @@ def coding_practice(username):
         example = st.session_state.get('example')
 
         if probable_category:
-             st.info(f"🤖 AI thinks this might be a **{probable_category}**.")
+             st.info(f"AI Model thinks this might be a **{probable_category}**.")
 
-        st.info(f"📘 Explanation: {explanation}")
+        st.info(f"Explanation: {explanation}")
         st.warning(f"💡 Hint: {fix_hint}")
         if example:
             st.code(example, language="python")
 
-        # --- Button logic moved to reinforcement section below ---
-
-        # --- SIMPLIFY BUTTON LOGIC ---
+        # Simplify Button Logic.
         if st.button("🤖 Simplify This Error"):
             with st.spinner("Simplifying error explanation using Gemini..."):
                 simplify_error_with_api(st.session_state['user_code'], st.session_state['error_message'])
@@ -173,10 +169,8 @@ def coding_practice(username):
             for exp in reversed(st.session_state['ai_explanations']):
                 st.info(exp)
                 st.markdown("---")
-        # --- END SIMPLIFY LOGIC ---
 
-    # --- Reinforcement message logic ---
-    # Moved button logic inside this block
+    # Reinforcement message logic. 
     reinforcement_data = get_reinforcement_message(username, st.session_state.get("probable_category"))
     # Only show if reinforcement triggered AND there was an error
     if reinforcement_data and "error_message" in st.session_state:
@@ -189,7 +183,7 @@ def coding_practice(username):
         if reinforcement_message: # Check if message is not empty
             st.info(reinforcement_message) # Display reinforcement message
 
-            # --- REVISE CONCEPT BUTTON LOGIC (NOW HERE) ---
+            # Revise Concepts Button
             probable_category_for_button = st.session_state.get('probable_category')
             if probable_category_for_button:
                 concept_key_to_revise = ERROR_TO_CONCEPT.get(probable_category_for_button)
@@ -219,4 +213,3 @@ def coding_practice(username):
                             st.success(f"Okay, navigate to the 'Concepts' tab to revise **{concept_key_to_revise}**.")
                         except Exception as write_error:
                             st.error(f"Could not save revision request: {write_error}")
-            # --- END REVISE CONCEPT BUTTON LOGIC ---

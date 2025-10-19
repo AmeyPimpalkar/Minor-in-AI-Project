@@ -1,7 +1,8 @@
 # core/progress.py
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+
 
 PROGRESS_DB = "data/progress.json"
 TASKS_DB = "data/coding_task.json"
@@ -14,7 +15,7 @@ def log_progress(username, task_id, passed, total, code, duration):
         "passed": passed,
         "total": total,
         "code": code,
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone(timedelta(hours=5, minutes=30))).isoformat(),
         "duration_seconds": duration,
         "difficulty": get_difficulty(task_id)
     }
@@ -48,7 +49,7 @@ def load_progress(username=None):
         return []
 
 def get_difficulty(task_id):
-    """Fetch difficulty from coding_task.json if available."""
+    # Fetch difficulty from coding_task.json if available.
     if not os.path.exists(TASKS_DB):
         return "Unknown"
     try:

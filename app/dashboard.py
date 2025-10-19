@@ -8,7 +8,6 @@ import json
 
 # Loads user progress
 def load_user_progress(username):
-    """Load per-user error trends from the learning log."""
     if not os.path.exists("data/user_learning_log.json"):
         return pd.DataFrame()
     with open("data/user_learning_log.json", "r", encoding="utf-8") as f:
@@ -21,7 +20,6 @@ def load_user_progress(username):
 
 def dashboard(username):
     st.header("Your Progress Dashboard")
-
     # Overall coding progress 
     data = load_progress(username)
     if not data:
@@ -32,7 +30,6 @@ def dashboard(username):
             lambda row: (row["passed"] / row["total"]) * 100 if row["total"] > 0 else 0,
             axis=1,
         )
-
         overall_rate = df["success_rate"].mean()
         if pd.isna(overall_rate) or overall_rate == float("inf"):
             overall_rate = 0
@@ -53,7 +50,7 @@ def dashboard(username):
         st.plotly_chart(fig1, use_container_width=True)
 
         # Time Spent Trend 
-        st.subheader("⏱ Time Spent on Tasks")
+        st.subheader("Time Spent on Tasks")
         df["timestamp"] = pd.to_datetime(df["timestamp"])
         fig2 = px.line(
             df,
@@ -78,7 +75,7 @@ def dashboard(username):
     # Error Trends from user_learning_log.json 
     df_error = load_user_progress(username)
     if not df_error.empty:
-        st.subheader("🧠 Error Trends (Learning Insights)")
+        st.subheader("Error Trends (Learning Insights)")
         fig = px.bar(
             df_error,
             x="Error Type",
@@ -90,7 +87,7 @@ def dashboard(username):
 
         most_common_error = df_error.sort_values(by="Count", ascending=False).iloc[0]
         st.info(
-            f"💡 You often encounter **{most_common_error['Error Type']}** errors. "
+            f"💡  You often encounter **{most_common_error['Error Type']}** errors. "
             f"Consider reviewing that concept for improvement!"
         )
     else:

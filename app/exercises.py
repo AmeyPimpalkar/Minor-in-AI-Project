@@ -4,7 +4,6 @@ import sys
 import builtins
 import traceback
 from io import StringIO
-# Import both explain_error and log_user_error
 from core.code_analyzer import analyze_code_style # Add this line
 from core.error_handler import explain_error, log_user_error
 import os
@@ -14,8 +13,8 @@ from core.progress import log_progress
 
 TASKS_DB = "data/coding_task.json"
 
+#Load tasks safely, return list (empty list if file missing/invalid).
 def load_tasks():
-    """Load tasks safely, return list (empty list if file missing/invalid)."""
     if not os.path.exists(TASKS_DB):
         return []
     try:
@@ -34,8 +33,8 @@ def load_tasks():
         st.error(f"Failed to load tasks JSON: {e}")
         return []
 
+# collapse whitespace, strip.
 def normalize_text(s):
-    """Normalize string for comparison: collapse whitespace, strip."""
     if s is None:
         return ""
     if not isinstance(s, str):
@@ -43,14 +42,9 @@ def normalize_text(s):
     return " ".join(s.strip().split())
 
 def compare_outputs(user_out, expected_out):
-    """Simple normalized equality check. You can extend this with token-based checks."""
     return normalize_text(user_out) == normalize_text(expected_out)
 
 def make_input_fn(input_str):
-    """
-    Create an input() replacement that yields tokens from input_str.
-    Splits on newlines if present, else whitespace.
-    """
     if input_str is None:
         parts = []
     elif "\n" in input_str:
@@ -68,9 +62,8 @@ def make_input_fn(input_str):
     return _input
 
 def exercises(username):
-    # Initialize start_time here in case no button is pressed
     start_time = time.time()
-    st.subheader("🎯 Coding Exercises")
+    st.subheader("Coding Exercises")
     tasks = load_tasks()
     if not tasks:
         st.info("No coding tasks found in data/coding_task.json")
@@ -109,14 +102,14 @@ def exercises(username):
     # Use session state to preserve code between runs
     code_key = f"code_input_{task.get('id', idx)}"
     if code_key not in st.session_state:
-        st.session_state[code_key] = "" # Initialize if not present
+        st.session_state[code_key] = "" # Initialise if not present
 
-    code = st.text_area("✍️ Write your solution here:", value=st.session_state[code_key], height=240, key=code_key + "_widget")
+    code = st.text_area("Write your solution here:", value=st.session_state[code_key], height=240, key=code_key + "_widget")
     st.session_state[code_key] = code # Update session state as user types
 
     passed = 0
     total = 0
-    duration = 0 # Initialize duration
+    duration = 0 # Initialise duration
 
     if st.button("Run Solution"):
         start_time = time.time()   # Start timing when Run button is clicked
@@ -128,7 +121,6 @@ def exercises(username):
             user_input = case.get("input", "")
             expected = case.get("expected_output", "")
 
-            # Prepare input() and stdout capture
             old_stdout = sys.stdout
             old_input = builtins.input
             sys.stdout = mystdout = StringIO()
@@ -137,12 +129,11 @@ def exercises(username):
             # Execute user code
             try:
                 local_vars = {}
-                # exec in a clean globals/local environment
                 exec(code, {}, local_vars)
                 output = mystdout.getvalue()
                 if output is None:
                     output = ""
-                output = output.rstrip("\n") # rstrip here
+                output = output.rstrip("\n") 
                 st.write("🔹 Output:")
                 st.code(output or "<no output>", language="text")
 
@@ -151,54 +142,41 @@ def exercises(username):
                     ok = compare_outputs(output, expected)
                 else:
                     # If no expected output, consider it passed if no error occurred
-                    # (This might need adjustment based on desired behavior for tests without output)
                     ok = True # Assume pass if code runs without error and no output expected
 
                 if ok:
                     st.success(f"✅ Test case #{i} passed")
                     passed += 1
 
-                            # --- ADD THIS BLOCK ---
-                    # Only analyze style if ALL tests pass for this run
                     if passed == total:
-                        st.markdown("---") # Add a separator
+                        st.markdown("---") # separator
                         ai_feedback = analyze_code_style(code)
                         if ai_feedback:
                             st.markdown("### 💡 Code Improvement Suggestions")
                             st.write(ai_feedback)
-                    # --- END ADD BLOCK ---
                 else:
                     st.error(f"❌ Test case #{i} failed")
                     if expected != "": # Show expected only if it was defined
                         st.write("Expected:")
                         st.code(expected, language="text")
-                    # No heuristic explanation on simple output mismatch
 
             except Exception as e:
                 # show full traceback to help debugging
                 tb = traceback.format_exc()
                 st.error(f"⚠️ Runtime error on test case #{i}: {e}")
-                st.code(tb, language="text")
-
-                # also try to get friendly explanation from error DB/AI
-                # --- MODIFIED HERE ---
+                st.code(tb, language="text")        
                 explanation, fix_hint, example, predicted_category = explain_error(str(e), username)
-                # --- END MODIFIED ---
 
-                # --- ADDED LOGGING ---
                 if predicted_category:
                     log_user_error(username, predicted_category)
                 else:
                     # Log generically if explain_error couldn't categorize
                     log_user_error(username, "UnknownExerciseError")
-                # --- END ADDED ---
 
                 if explanation:
-                    # --- ADDED CATEGORY DISPLAY ---
                     if predicted_category:
                        st.info(f"🤖 AI thinks this might be a **{predicted_category}**.")
-                    # --- END ADDED ---
-                    st.info(f"📘 Explanation: {explanation}") # Changed to info for less visual weight
+                    st.info(f"📘 Explanation: {explanation}") 
                     st.warning(f"💡 Hint: {fix_hint}")
                     if example:
                         st.code(example, language="python")
@@ -230,4 +208,4 @@ def exercises(username):
             code=code, # Log the code that was run
             duration=duration
         )
-        st.success("📊 Progress saved!")
+        st.success("Progress saved!")

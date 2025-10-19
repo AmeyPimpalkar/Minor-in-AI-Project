@@ -20,20 +20,16 @@ ERROR_TO_CONCEPT = {
     "ModuleNotFoundError": "syntax"
 }
 
-
+# Load JSON safely.
 def load_json(path):
-    """Load JSON safely."""
     if not os.path.exists(path):
         return {}
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-
+# Concepts Page.
 def concepts(username):
-    """Main page for learning concepts."""
-    st.header("📘 Learn Programming Concepts")
-
-    # Load both databases
+    st.header(" Learn Programming Concepts")
     data = load_json(CONCEPTS_DB)
     revise_data = load_json(REVISE_DB)
 
@@ -41,7 +37,7 @@ def concepts(username):
         st.error("No concepts found in data/concepts.json")
         return
 
-    # Check if user recently clicked "Review Related Concept"
+    # Check if user recently clicked "Review Related Concept".
     recent_path = "data/revise_concepts.json"
     concept_key = None
 

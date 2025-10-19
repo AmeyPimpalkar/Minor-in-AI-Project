@@ -16,7 +16,7 @@ def language_selection():
 
 def main():
     st.set_page_config(page_title="AI Coding Mentor", layout="wide")
-    st.title("🤖 AI Coding Mentor")
+    st.title("AI Coding Mentor") # Project title
 
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
